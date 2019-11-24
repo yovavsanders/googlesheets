@@ -3,6 +3,11 @@
   <head>
     <title>Google Sheets API Quickstart</title>
     <meta charset="utf-8" />
+    
+        <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+        <script src="https://www.govmap.gov.il/govmap/api/govmap.api.js"></script>
+    
+    
   </head>
   <body>
     <p>Google Sheets API Quickstart</p>
@@ -10,10 +15,38 @@
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
+    
+    
+        <div id="frmMapSearch">
+            <label>כתובת: </label>
+            <input type="text" id="txtMapSearch" placeholder="לדוגמה: רוטשילד 1 תל אביב">
+            <input type="submit" id="btnMapSearch" value="חיפוש">
+            <input type="button" id="btnClearMapSearch" value="נקה">
+        </div>
+        <div id="map" style="width:600px;height:600px"></div>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
+      
+      
+      
+              $(function () {
+            govmap.createMap('map',
+            {
+                token: 'aafedfe5-8dfa-4fd5-9af9-8b95759447bd',//'6399aa9f-3309-4808-9ef3-867c70c27029',
+                visibleLayers: ["KALPI_NEGISHUT", "WPLAN2019Q1"],
+				Layers: ["KALPI_NEGISHUT", "WPLAN2019Q1"],				//"LOCALITY_210410"
+                showXY: true,
+                identifyOnClick: true,
+                isEmbeddedToggle: false,
+                bgButton: true,
+                background: 0,
+                layersMode: 4,
+                zoomButtons: true
+            });
+      
+      
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com';
       var API_KEY = 'AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA';
