@@ -235,8 +235,22 @@
 	gapi.client.sheets.spreadsheets.values.append({
 	   spreadsheetId: '16s-LTJ_mIQ36sdHyHEYMZOZ4PL-MFsVkw38oJtfiET8',
 	   range: 'גיליון1!B2:G',
+	   includeValuesInResponse: false,
 	   insertDataOption: 'INSERT_ROWS',
-	   resource: body
+	   responseDateTimeRenderOption: "FORMATTED_STRING",
+	   responseValueRenderOption: "FORMATTED_VALUE",
+	   valueInputOption: "USER_ENTERED",
+	   resource: {
+		"values": [
+		    [
+		      "abc",
+		      "",
+		      "",
+		      1,
+		      2
+		    ]
+		]
+	   }
 	}).then((response) => {
 	  var result = response.result;
 	  console.log(`${result.updates.updatedCells} cells appended.`)
