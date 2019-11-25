@@ -124,6 +124,17 @@
           signoutButton.style.display = 'none';
         }
       }
+	
+      function updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), attributes_array) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+          insertRow(attributes_array);
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
 
       /**
        *  Sign in the user upon button click.
@@ -209,7 +220,8 @@
 		var x = click_result.mapPoint.x;
 		var y = click_result.mapPoint.y
 		AddUserPoint(x, y, "נקודה חדשה")
-		insertRow(["נקודה חדשה", "", "", x, y]);
+		//insertRow(["נקודה חדשה", "", "", x, y]);
+		updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
 	});
     }
 
