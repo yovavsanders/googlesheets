@@ -184,10 +184,11 @@
       /**
        * Print the names and xys in a sample spreadsheet:
        * https://docs.google.com/spreadsheets/d/1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE/edit
+	* mine - https://docs.google.com/spreadsheets/d/16s-LTJ_mIQ36sdHyHEYMZOZ4PL-MFsVkw38oJtfiET8/edit#gid=0
        */
       function listMajors() {
         gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE',
+          spreadsheetId: '16s-LTJ_mIQ36sdHyHEYMZOZ4PL-MFsVkw38oJtfiET8',
           range: 'גיליון1!B2:J',
         }).then(function(response) {
           var range = response.result;
@@ -222,7 +223,7 @@
 	  values: values
 	};
 	gapi.client.sheets.spreadsheets.values.append({
-	   spreadsheetId: '1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE',
+	   spreadsheetId: '16s-LTJ_mIQ36sdHyHEYMZOZ4PL-MFsVkw38oJtfiET8',
 	   range: 'גיליון1!B2:G',
 	   valueInputOption: 'RAW',
 	   insertDataOption: 'INSERT_ROWS',
