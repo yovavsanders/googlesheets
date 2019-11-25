@@ -18,6 +18,7 @@
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
+	<button onclick="authenticate().then(loadClient)">Start Editing</button>
     <button id="add_point" onclick="drawPoint()" >Add Point</button>
     <button id=delete_point" >Delete Point</button>
     <div id="map_div" style="width:600px;height:600px"></div>
@@ -108,24 +109,7 @@
           appendPre(JSON.stringify(error, null, 2));
         });
       }
-	
-    function initClientInsert(att_array) {
-        gapi.client.init({
-          apiKey: "AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA",
-          clientId: "455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com",
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES
-        }).then(function () {
-          // Listen for sign-in state changes.
-		 gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatusInsert);
-          // Handle the initial sign-in state.
-          updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), att_array);
-          authorizeButton.onclick = handleAuthClick;
-          signoutButton.onclick = handleSignoutClick;
-        }, function(error) {
-          appendPre(JSON.stringify(error, null, 2));
-        });
-      }
+
 
       /**
        *  Called when the signed in status changes, to update the UI
@@ -141,28 +125,8 @@
           signoutButton.style.display = 'none';
         }
       }
-	  
-	  function updateSigninStatusInsert(isSignedIn) {
-        if (isSignedIn) {
-          authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';
-        } else {
-          authorizeButton.style.display = 'block';
-          signoutButton.style.display = 'none';
-        }
-      }
-	
-      function updateSigninStatusWrite(isSignedIn, attributes_array) {
-        if (isSignedIn) {
-          console.log("SignedIn");
-          authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';
-          insertRow(attributes_array);
-        } else {
-          authorizeButton.style.display = 'block';
-          signoutButton.style.display = 'none';
-        }
-      }
+
+
 
       /**
        *  Sign in the user upon button click.
@@ -220,28 +184,46 @@
           appendPre('Error: ' + response.result.error.message);
         });
       }
-						
-  function insertRow(attributes_array) {
-	console.log(attributes_array);
-	gapi.client.sheets.spreadsheets.values.append({
-	   spreadsheetId: '16s-LTJ_mIQ36sdHyHEYMZOZ4PL-MFsVkw38oJtfiET8',
-	   range: 'גיליון1!B2:G',
-	   includeValuesInResponse: false,
-	   insertDataOption: 'INSERT_ROWS',
-	   responseDateTimeRenderOption: "FORMATTED_STRING",
-	   responseValueRenderOption: "FORMATTED_VALUE",
-	   valueInputOption: "USER_ENTERED",
-	   resource: {
-		"values": [
-		    attributes_array
-		]
-	   }
-	}).then((response) => {
-	  var result = response.result;
-	  console.log(`${result.updates.updatedCells} cells appended.`)
-	});
-    }
-	
+	  
+	  
+	    function authenticate() {
+			return gapi.auth2.getAuthInstance()
+				.signIn({scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets"})
+				.then(function() { console.log("Sign-in successful"); },
+					  function(err) { console.error("Error signing in", err); });
+		}
+		function loadClient() {
+			gapi.client.setApiKey("AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA");
+			return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/sheets/v4/rest")
+				.then(function() { console.log("GAPI client loaded for API"); },
+					  function(err) { console.error("Error loading GAPI client for API", err); });
+		}
+		
+		  // Make sure the client is loaded and sign-in is complete before calling this method.
+		function execute(attributes_array) {
+			return gapi.client.sheets.spreadsheets.values.append({
+			  "spreadsheetId": "1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE",
+			  "range": "גיליון1!C2:G",
+			  "includeValuesInResponse": false,
+			  "insertDataOption": "INSERT_ROWS",
+			  "responseDateTimeRenderOption": "FORMATTED_STRING",
+			  "responseValueRenderOption": "FORMATTED_VALUE",
+			  "valueInputOption": "USER_ENTERED",
+			  "resource": {
+				"values": [
+				  [
+						attributes_array
+				  ]
+				]
+			  }
+		})
+		.then(function(response) {
+						// Handle the results here (response.result has the parsed body).
+						console.log("Response", response);
+					  },
+					  function(err) { console.error("Execute error", err); });
+		 }
+		
     function drawPoint(){
 	// get map click
 	govmap.onEvent(govmap.events.CLICK).progress(function (click_result)
@@ -251,7 +233,7 @@
 		AddUserPoint(x, y, "נקודה חדשה")
 		//insertRow(["", "נקודה חדשה", "", "", x, y]);
 		//updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
-		initClientInsert(["", "נקודה חדשה", "", "", x, y]);
+		execute(["", "נקודה חדשה", "", "", x, y]);
 	});
     }
 	
