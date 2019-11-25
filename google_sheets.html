@@ -125,7 +125,7 @@
         }
       }
 	
-      function updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), attributes_array) {
+      function updateSigninStatusWrite(isSignedIn, attributes_array) {
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
