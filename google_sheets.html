@@ -75,7 +75,7 @@
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      var SCOPES = "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/spreadsheets.readonly";
+      var SCOPES = "https://www.googleapis.com/auth/spreadsheets";
 
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
@@ -103,6 +103,24 @@
 
           // Handle the initial sign-in state.
           updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
+        }, function(error) {
+          appendPre(JSON.stringify(error, null, 2));
+        });
+      }
+	
+    function initClientInsert(att_array) {
+        gapi.client.init({
+          apiKey: "AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA",
+          clientId: "455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com",
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+
+          // Handle the initial sign-in state.
+          updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), att_array);
           authorizeButton.onclick = handleAuthClick;
           signoutButton.onclick = handleSignoutClick;
         }, function(error) {
@@ -222,7 +240,8 @@
 		var y = click_result.mapPoint.y
 		AddUserPoint(x, y, "נקודה חדשה")
 		//insertRow(["נקודה חדשה", "", "", x, y]);
-		updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
+		//updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
+		initClientInsert(["נקודה חדשה", "", "", x, y]);
 	});
     }
 	
