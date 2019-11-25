@@ -3,12 +3,8 @@
   <title>Google Sheets API - Govmap Add XY Points</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
   <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9" /> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="https://www.govmap.gov.il/govmap/api/govmap.api.js"></script> 
-
-    
   <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
-  <script src="https://www.govmap.gov.il/govmap/api/govmap.api.js"></script>
     
     
   </head>
@@ -20,23 +16,21 @@
     <button id="signout_button" style="display: none;">Sign Out</button>
 	<button onclick="authenticate().then(loadClient)">Start Editing</button>
     <button id="add_point" onclick="drawPoint()" >Add Point</button>
-    <button id=delete_point" >Delete Point</button>
     <div id="map_div" style="width:600px;height:600px"></div>
     <pre id="content" style="white-space: pre-wrap;"></pre>
     <script type="text/javascript">
       
       var govmap_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd';
       
-      govmap.createMap('map_div',{
-	token: govmap_token,
-	visibleLayers: ["NEIGHBORHOODS_AREA"],
-	layers: ["NEIGHBORHOODS_AREA"],
-	showXY: true,
-	layersMode: 2,
-	center: {x: 202700, y: 552700},
-	level: 5,
-	identifyOnClick: true
+     govmap.createMap('map_div',{
+		token: govmap_token,
+		showXY: true,
+		layersMode: 2,
+		center: {x: 202700, y: 552700},
+		level: 5,
+		identifyOnClick: true
       });
+	  
      function AddUserPoint(x, y, name){	
 		var bubbleContent = "<div style='border: 1px solid #525252; margin: 10px;padding: 10px;'><div style='background-color: yellow;'>{0}</div><div               style='background-color: blue;'>{1}</div></div>";
 		var data = {  
@@ -63,19 +57,18 @@
 		{  
 		  console.log(response.data);
 		}); 
-
       }
       
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com';
       var API_KEY = 'AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA'; 
-
+	  
+	  var SPREADSHEETID =  "1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE";
       // Array of API discovery doc URLs for APIs used by the quickstart
       var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      //var SCOPES = "https://www.googleapis.com/auth/spreadsheets";
       var SCOPES = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file';
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
@@ -93,8 +86,8 @@
        */
       function initClient() {
         gapi.client.init({
-          apiKey: "AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA",
-          clientId: "455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com",
+          apiKey: API_KEY ,
+          clientId: CLIENT_ID,
           discoveryDocs: DISCOVERY_DOCS,
           scope: SCOPES
         }).then(function () {
@@ -157,11 +150,10 @@
       /**
        * Print the names and xys in a sample spreadsheet:
        * https://docs.google.com/spreadsheets/d/1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE/edit
-	* mine - https://docs.google.com/spreadsheets/d/16s-LTJ_mIQ36sdHyHEYMZOZ4PL-MFsVkw38oJtfiET8/edit#gid=0
        */
       function listMajors() {
         gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '16s-LTJ_mIQ36sdHyHEYMZOZ4PL-MFsVkw38oJtfiET8',
+          spreadsheetId: SPREADSHEETID,
           range: 'גיליון1!B2:J',
         }).then(function(response) {
           var range = response.result;
@@ -193,7 +185,7 @@
 					  function(err) { console.error("Error signing in", err); });
 		}
 		function loadClient() {
-			gapi.client.setApiKey("AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA");
+			gapi.client.setApiKey(API_KEY );
 			return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/sheets/v4/rest")
 				.then(function() { console.log("GAPI client loaded for API"); },
 					  function(err) { console.error("Error loading GAPI client for API", err); });
@@ -202,7 +194,7 @@
 		  // Make sure the client is loaded and sign-in is complete before calling this method.
 		function execute(attributes_array) {
 			return gapi.client.sheets.spreadsheets.values.append({
-			  "spreadsheetId": "1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE",
+			  "spreadsheetId": SPREADSHEETID,
 			  "range": "גיליון1!C2:G",
 			  "includeValuesInResponse": false,
 			  "insertDataOption": "INSERT_ROWS",
@@ -216,23 +208,21 @@
 			  }
 		})
 		.then(function(response) {
-						// Handle the results here (response.result has the parsed body).
-						console.log("Response", response);
-					  },
-					  function(err) { console.error("Execute error", err); });
+				// Handle the results here (response.result has the parsed body).
+				console.log("Response", response);
+			  },
+			  function(err) { console.error("Execute error", err); });
 		 }
 		
     function drawPoint(){
-	// get map click
-	govmap.onEvent(govmap.events.CLICK).progress(function (click_result)
-	{
-		var x = click_result.mapPoint.x;
-		var y = click_result.mapPoint.y
-		AddUserPoint(x, y, "נקודה חדשה")
-		//insertRow(["", "נקודה חדשה", "", "", x, y]);
-		//updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
-		execute(["", "נקודה חדשה", "", "", x, y]);
-	});
+		// get map click
+		govmap.onEvent(govmap.events.CLICK).progress(function (click_result)
+		{
+			var x = click_result.mapPoint.x;
+			var y = click_result.mapPoint.y
+			AddUserPoint(x, y, "נקודה חדשה")
+			execute(["", "נקודה חדשה", "", "", x, y]);
+		});
     }
 	
 	
