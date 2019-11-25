@@ -14,16 +14,27 @@
   </head>
   <body>
     <p>Google Sheets API - Govmap Add XY Points</p>
-
+   
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
-
+    <div id="map_div" style="width:600px;height:600px"></div>
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
       
-            //token: 'aafedfe5-8dfa-4fd5-9af9-8b95759447bd',//'6399aa9f-3309-4808-9ef3-867c70c27029',
+      var govmap_token: 'aafedfe5-8dfa-4fd5-9af9-8b95759447bd',
+      
+      govmap.createMap('map_div',{
+			  token: govmap_token,
+        Layers: ["PARCEL_ALL"],  
+	      showXY: true,
+				layersMode: 2,
+				level: 1,
+	      identifyOnClick:true  
+				
+	    }); 
+      
                 
       
       
