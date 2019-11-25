@@ -18,6 +18,8 @@
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
+    <button id="add_point" >Add Point</button>
+    <button id=delete_point" >Delete Point</button>
     <div id="map_div" style="width:600px;height:600px"></div>
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -32,11 +34,36 @@
 	showXY: true,
 	layersMode: 2,
 	level: 1,
-	identifyOnClick:true
-      }); 
-      
-                
-      
+	identifyOnClick: true
+      });
+     function AddUserPoint(x, y name){	
+		var bubbleContent = "<div style='border: 1px solid #525252; margin: 10px;padding: 10px;'><div style='background-color: yellow;'>{0}</div><div               style='background-color: blue;'>{1}</div></div>";
+		var data = {  
+		wkts: ["POINT(("+x+" "+y+"))"],  
+		names: [name],  
+		geometryType: govmap.drawType.Point,  
+		defaultSymbol:  
+			{  
+			outlineColor: [0, 80, 255, 1],  
+			outlineWidth: 1,  
+			fillColor: [138, 43, 226, 0.5]
+			},  
+		symbols: [],  
+		clearExisting: false,  
+		data: {  
+				tooltips: [name],  
+				headers: [name],
+				bubbleHTML: bubbleContent,
+				bubbleHTMLParameters:[[name, 'מידע נוסף...']]
+		      }  
+                };  
+				  
+		govmap.displayGeometries(data).then(function (response)  
+		{  
+		  console.log(response.data);
+		}); 
+
+      }
       
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com';
@@ -139,6 +166,7 @@
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
               appendPre(row[0] + ', ' + row[3] + ', ' + row[4]);
+	      AddUserPoint(x, y name);
             }
           } else {
             appendPre('No data found.');
