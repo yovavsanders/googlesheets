@@ -182,24 +182,30 @@
       }
 						
   function insertRow(attributes_array) {
-	initClient();
-	var values = [
-	  [
-	    attributes_array
-	  ]
-	  //, Additional rows ...
-	];
-	var body = {
-	  values: values
-	};
-	gapi.client.sheets.spreadsheets.values.append({
-	   spreadsheetId: '1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE',
-	   range: 'גיליון1!B2:J',
-	   valueInputOption: 'RAW',
-	   resource: body
-	}).then((response) => {
-	  var result = response.result;
-	  console.log(`${result.updates.updatedCells} cells appended.`)
+	gapi.client.init({
+          apiKey: "AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA",
+          clientId: "455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com",
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+		var values = [
+		  [
+		    attributes_array
+		  ]
+		  //, Additional rows ...
+		];
+		var body = {
+		  values: values
+		};
+		gapi.client.sheets.spreadsheets.values.append({
+		   spreadsheetId: '1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE',
+		   range: 'גיליון1!B2:J',
+		   valueInputOption: 'RAW',
+		   resource: body
+		}).then((response) => {
+		  var result = response.result;
+		  console.log(`${result.updates.updatedCells} cells appended.`)
+		});
 	});
     }
 	
