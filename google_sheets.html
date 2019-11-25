@@ -60,6 +60,7 @@
 		govmap.displayGeometries(data).then(function (response)  
 		{  
 		  console.log(response.data);
+		  execute(["", "נקודה חדשה", "", "", x, y]);
 		}); 
       }
       
@@ -228,7 +229,7 @@
 			AddUserPoint(x, y, "נקודה חדשה")
 			//insertRow(["", "נקודה חדשה", "", "", x, y]);
 			//updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
-			execute(["", "נקודה חדשה", "", "", x, y]);
+			//execute(["", "נקודה חדשה", "", "", x, y]);
 		});
     }
 	
