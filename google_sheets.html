@@ -206,7 +206,9 @@
 	// get map click
 	govmap.onEvent(govmap.events.CLICK).progress(function (click_result)
 	{
-		AddUserPoint(click_result.mapPoint.x, click_result.mapPoint.y, "נקודה חדשה")
+		var x = click_result.mapPoint.x;
+		var y = click_result.mapPoint.y
+		AddUserPoint(x, y, "נקודה חדשה")
 		insertRow(["נקודה חדשה", "", "", x, y]);
 	});
     }
