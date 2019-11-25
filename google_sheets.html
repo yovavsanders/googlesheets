@@ -28,7 +28,8 @@
       var govmap_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd';
       
       govmap.createMap('map_div',{
-	token: govmap_token,
+	token: govmap_token, 
+	center: {x: 202700, y: 552700},
 	visibleLayers: ["NEIGHBORHOODS_AREA"],
 	layers: ["NEIGHBORHOODS_AREA"],
 	showXY: true,
@@ -84,7 +85,6 @@
        */
       function handleClientLoad() {
         gapi.load('client:auth2', initClient);
-	setTimeout(function(){ govmap.zoomToDrawing();}, 3000);
       }
 
       /**
