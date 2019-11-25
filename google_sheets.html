@@ -18,7 +18,7 @@
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
-	<button onclick="authenticate().then(loadClient)">Start Editing</button>
+    <button onclick="authenticate().then(loadClient)">Start Editing</button>
     <button id="add_point" onclick="drawPoint()" >Add Point</button>
     <div id="map_div" style="width:600px;height:600px"></div>
     <pre id="content" style="white-space: pre-wrap;"></pre>
@@ -60,9 +60,10 @@
 		govmap.displayGeometries(data).then(function (response)  
 		{  
 		  console.log(response.data);
-		  execute(["", "נקודה חדשה", "", "", x, y]);
 		}); 
       }
+	    
+      var PointCount = 0;
       
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com';
@@ -77,7 +78,9 @@
       var SCOPES = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file';
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
-
+	
+	    
+	    
       /**
        *  On load, called to load the auth2 library and API client library.
        */
@@ -173,6 +176,7 @@
 	      var y = row[4];
 	      var name = row[0];
 	      AddUserPoint( x, y, name);
+	      PointCount = PointCount + 1;
             }
           } else {
             appendPre('No data found.');
@@ -182,7 +186,6 @@
           appendPre('Error: ' + response.result.error.message);
         });
       }
-	  
 	  
 	    function authenticate() {
 			return gapi.auth2.getAuthInstance()
@@ -227,14 +230,12 @@
 			var x = click_result.mapPoint.x;
 			var y = click_result.mapPoint.y
 			AddUserPoint(x, y, "נקודה חדשה")
+			PointCount = PointCount + 1;
 			//insertRow(["", "נקודה חדשה", "", "", x, y]);
 			//updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
-			//execute(["", "נקודה חדשה", "", "", x, y]);
+			execute([PointCount, "נקודה חדשה", "", "", x, y]);
 		});
     }
-	
-	
-
 	
 	
 
