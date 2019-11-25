@@ -22,7 +22,6 @@
     <button id=delete_point" >Delete Point</button>
     <div id="map_div" style="width:600px;height:600px"></div>
     <pre id="content" style="white-space: pre-wrap;"></pre>
-
     <script type="text/javascript">
       
       var govmap_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd';
@@ -118,7 +117,7 @@
           scope: SCOPES
         }).then(function () {
           // Listen for sign-in state changes.
-
+		 gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatusInsert);
           // Handle the initial sign-in state.
           updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), att_array);
           authorizeButton.onclick = handleAuthClick;
@@ -137,6 +136,16 @@
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
           listMajors();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
+	  
+	  function updateSigninStatusInsert(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
