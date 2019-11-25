@@ -154,6 +154,7 @@
 	
       function updateSigninStatusWrite(isSignedIn, attributes_array) {
         if (isSignedIn) {
+          console.log("SignedIn");
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
           insertRow(attributes_array);
