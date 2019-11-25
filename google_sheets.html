@@ -64,7 +64,7 @@
 		}); 
 
       }
-      setTimeout(function(){ govmap.zoomToDrawing();}, 3000)
+      
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com';
       var API_KEY = 'AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA';
@@ -84,6 +84,7 @@
        */
       function handleClientLoad() {
         gapi.load('client:auth2', initClient);
+	setTimeout(function(){ govmap.zoomToDrawing();}, 3000);
       }
 
       /**
