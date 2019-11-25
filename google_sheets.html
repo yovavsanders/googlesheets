@@ -204,7 +204,7 @@
 	};
 	gapi.client.sheets.spreadsheets.values.append({
 	   spreadsheetId: '1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE',
-	   range: 'גיליון1!B2:J',
+	   range: 'גיליון1!B2:F',
 	   valueInputOption: 'RAW',
 	   insertDataOption: 'INSERT_ROWS',
 	   resource: body
@@ -227,34 +227,7 @@
     }
 	
 	
-    function makeApiCall() {
-      var params = {
-        // The ID of the spreadsheet to update.
-        spreadsheetId: '1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE',  // TODO: Update placeholder value.
 
-        // The A1 notation of a range to search for a logical table of data.
-        // Values will be appended after the last row of the table.
-        range: 'גיליון1!B2:K',  // TODO: Update placeholder value.
-
-        // How the input data should be interpreted.
-        valueInputOption: 'RAW',  // TODO: Update placeholder value.
-
-        // How the input data should be inserted.
-        insertDataOption: 'INSERT_ROWS',  // TODO: Update placeholder value.
-      };
-
-      var valueRangeBody = {
-        // TODO: Add desired properties to the request body.
-      };
-
-      var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
-      request.then(function(response) {
-        // TODO: Change code below to process the `response` object:
-        console.log(response.result);
-      }, function(reason) {
-        console.error('error: ' + reason.result.error.message);
-      });
-    }
 	
 	
 
