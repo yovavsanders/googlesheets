@@ -221,17 +221,7 @@
       }
 						
   function insertRow(attributes_array) {
-	var values = [
-	  //[
-	    attributes_array
-	  //]
-	  //, Additional rows ...
-	];
-	console.log(values);
-	var body = {
-	    values: values,
-	    valueInputOption: "USER_ENTERED",
-	};
+	console.log(attributes_array);
 	gapi.client.sheets.spreadsheets.values.append({
 	   spreadsheetId: '16s-LTJ_mIQ36sdHyHEYMZOZ4PL-MFsVkw38oJtfiET8',
 	   range: 'גיליון1!B2:G',
@@ -242,13 +232,7 @@
 	   valueInputOption: "USER_ENTERED",
 	   resource: {
 		"values": [
-		    [
-		      "abc",
-		      "",
-		      "",
-		      1,
-		      2
-		    ]
+		    attributes_array
 		]
 	   }
 	}).then((response) => {
