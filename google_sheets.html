@@ -45,8 +45,8 @@
 	    	defaultSymbol:  
 		{  
 			url:'http://maps.google.com/mapfiles/kml/paddle/blu-circle.png',  
-			width:15,  
-			height:15  
+			width:25,  
+			height:25  
 		},   
 		symbols: [],  
 		clearExisting: false,  
@@ -166,6 +166,9 @@
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
               appendPre(row[0] + ', ' + row[3] + ', ' + row[4]);
+	      var x = row[3];
+	      var y = row[4];
+	      var name = row[0];
 	      AddUserPoint( row[3], row[4], row[0]);
             }
           } else {
