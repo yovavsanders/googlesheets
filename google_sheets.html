@@ -222,7 +222,6 @@
 		var y = click_result.mapPoint.y
 		AddUserPoint(x, y, "נקודה חדשה")
 		//insertRow(["נקודה חדשה", "", "", x, y]);
-		initClient();
 		updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
 	});
     }
