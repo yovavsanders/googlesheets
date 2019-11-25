@@ -94,7 +94,7 @@
       function initClient() {
         gapi.client.init({
           apiKey: "AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA",
-          clientId: "455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com", //173a3duFVr_gtOpHGYrB2OD2
+          clientId: "455032185652-ogrgu70vr0u72p1v0ht1864o1ng4nvil.apps.googleusercontent.com",
           discoveryDocs: DISCOVERY_DOCS,
           scope: SCOPES
         }).then(function () {
@@ -153,7 +153,7 @@
 
       /**
        * Print the names and xys in a sample spreadsheet:
-       * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+       * https://docs.google.com/spreadsheets/d/1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE/edit
        */
       function listMajors() {
         gapi.client.sheets.spreadsheets.values.get({
@@ -180,6 +180,36 @@
           appendPre('Error: ' + response.result.error.message);
         });
       }
+						
+  function insertRow(attributes_array) {
+	var values = [
+	  [
+	    attributes_array
+	  ],
+	  // Additional rows ...
+	];
+	var body = {
+	  values: values
+	};
+	gapi.client.sheets.spreadsheets.values.append({
+	   spreadsheetId: '1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE',
+	   range: 'גיליון1!A2:J',
+	   valueInputOption: 'RAW',
+	   resource: body
+	}).then((response) => {
+	  var result = response.result;
+	  console.log(`${result.updates.updatedCells} cells appended.`)
+	});
+    }
+	
+    drawPoint(){
+	// get map click
+	govmap.onEvent(govmap.events.CLICK).progress(function (click_result)
+	{
+		AddUserPoint(click_result.mapPoint.x, click_result.mapPoint.y, "נקודה חדשה")
+		insertRow(["נקודה חדשה", "", "", x, y]);
+	}
+    }
 
     </script>
 
