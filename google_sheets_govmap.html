@@ -163,7 +163,7 @@
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
-              appendPre(row[0] + ', ' + row[3] + ', ' + row[4]);
+              appendPre(PointCount + ", " + row[0] + ', ' + row[3] + ', ' + row[4]);
 	      var x = row[3];
 	      var y = row[4];
 	      var name = row[0];
@@ -221,7 +221,7 @@
 			var x = click_result.mapPoint.x;
 			var y = click_result.mapPoint.y
 			AddUserPoint(x, y, "נקודה חדשה", true)
-			appendPre( "נקודה חדשה" + ', ' +x + ', ' + y);
+			appendPre(PointCount + ", " + "נקודה חדשה" + ', ' +x + ', ' + y);
 		});	
     	}
 	
