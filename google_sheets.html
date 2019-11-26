@@ -236,10 +236,7 @@
 			//insertRow(["", "נקודה חדשה", "", "", x, y]);
 			//updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
 		});
-	    	if (x > 0 && y > 0)
-		{
-	    		execute([PointCount, "נקודה חדשה", "", "", x, y]);
-		}
+	    	setTimeout(execute([PointCount, "נקודה חדשה", "", "", x, y]), 3000);
     }
 	
 	
