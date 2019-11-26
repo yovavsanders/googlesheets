@@ -62,6 +62,7 @@
 		  console.log(response.data);
 		  if (insert_row){
 			  execute([PointCount, "נקודה חדשה", "", "", x, y]);
+			  appendPre(PointCount + ", " + "נקודה חדשה" + ', ' +x + ', ' + y);
 		  }
 		}); 
 	     	PointCount = PointCount + 1;
@@ -221,7 +222,6 @@
 			var x = click_result.mapPoint.x;
 			var y = click_result.mapPoint.y
 			AddUserPoint(x, y, "נקודה חדשה", true)
-			appendPre(PointCount + ", " + "נקודה חדשה" + ', ' +x + ', ' + y);
 		});	
     	}
 	
