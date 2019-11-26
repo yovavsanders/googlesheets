@@ -65,7 +65,7 @@
 			  appendPre(PointCount + ", " + "נקודה חדשה" + ', ' +x + ', ' + y);
 		  }
 		}); 
-	     	PointCount = PointCount + 1;
+	     	//PointCount = PointCount + 1;
       }
 	    
       var PointCount = 0;
@@ -168,8 +168,8 @@
 	      var x = row[3];
 	      var y = row[4];
 	      var name = row[0];
+	      PointCount = PointCount + 1;
 	      AddUserPoint( x, y, name, false);
-	      //PointCount = PointCount + 1;
             }
           } else {
             appendPre('No data found.');
@@ -216,6 +216,7 @@
     	}
 		
     	function drawPoint(){
+		PointCount = PointCount + 1;
 		// get map click
 		govmap.onEvent(govmap.events.CLICK).progress(function (click_result)
 		{
