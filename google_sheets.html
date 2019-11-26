@@ -225,16 +225,22 @@
 		
     function drawPoint(){
 		// get map click
+	    	var x = 0;
+	    	var y = 0 ;
 		govmap.onEvent(govmap.events.CLICK).progress(function (click_result)
 		{
-			var x = click_result.mapPoint.x;
-			var y = click_result.mapPoint.y
+			x = click_result.mapPoint.x;
+			y = click_result.mapPoint.y
 			AddUserPoint(x, y, "נקודה חדשה")
 			PointCount = PointCount + 1;
 			//insertRow(["", "נקודה חדשה", "", "", x, y]);
 			//updateSigninStatusWrite(gapi.auth2.getAuthInstance().isSignedIn.get(), ["נקודה חדשה", "", "", x, y]);
 			execute([PointCount, "נקודה חדשה", "", "", x, y]);
 		});
+	    	if (x > 0 && y > 0)
+		{
+	    		execute([PointCount, "נקודה חדשה", "", "", x, y]);
+		}
     }
 	
 	
