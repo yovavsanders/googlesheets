@@ -60,8 +60,8 @@
 		govmap.displayGeometries(data).then(function (response)  
 		{  
 		  console.log(response.data);
-		  PointCount = PointCount + 1;
 		  if (insert_row){
+			  PointCount = PointCount + 1;
 			  execute([PointCount, "נקודה חדשה", "", "", x, y]);
 			  appendPre(PointCount + ", " + "נקודה חדשה" + ', ' +x + ', ' + y);
 		  }
