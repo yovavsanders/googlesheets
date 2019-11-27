@@ -60,13 +60,13 @@
 		govmap.displayGeometries(data).then(function (response)  
 		{  
 		  console.log(response.data);
+		  PointCount = PointCount + 1;
 		  if (insert_row){
 			  execute([PointCount, "נקודה חדשה", "", "", x, y]);
 			  appendPre(PointCount + ", " + "נקודה חדשה" + ', ' +x + ', ' + y);
 		  }
 		}); 
-	     	PointCount = PointCount + 1;
-      }
+     }
 	    
       var PointCount = 0;
       // Client ID and API key from the Developer Console
