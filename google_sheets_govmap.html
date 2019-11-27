@@ -156,7 +156,7 @@
       function listPoints() {
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: SPREADSHEETID,
-          range: 'גיליון1!B2:J',
+          range: 'גיליון1!A2:J',
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
@@ -164,9 +164,9 @@
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
-              appendPre(PointCount + ", " + row[0] + ', ' + row[3] + ', ' + row[4]);
-	      var x = row[3];
-	      var y = row[4];
+              appendPre(row[0] + ", " + row[1] + ', ' + row[4] + ', ' + row[5]);
+	      var x = row[4];
+	      var y = row[5];
 	      var name = row[0];
 	      AddUserPoint( x, y, name, false);
             }
