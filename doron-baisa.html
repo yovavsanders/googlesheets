@@ -221,12 +221,14 @@
 //      }, function(reason) {
 //        console.error('error: ' + reason.result.error.message);
  //     });
- //   }
 		
-		gapi.client.sheets.spreadsheets.values.batchGet(params).then((response) => {
-			  var result = response.result;
-			  console.log(`${result.valueRanges.length} ranges retrieved.`);
-			});
+	gapi.client.sheets.spreadsheets.values.batchGet(params).then((response) => {
+		  var result = response.result;
+		  console.log(`${result.valueRanges.length} ranges retrieved.`);
+		});
+  }
+		
+		
 
     function initClient() {
       var API_KEY = 'AIzaSyBDU5RFJk1IDETKeGB0I5ycQu6NaUnLWqA';  // TODO: Update placeholder with desired API key.
