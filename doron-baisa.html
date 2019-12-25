@@ -320,11 +320,13 @@
 		
 </script>  
 	<script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad();handleSignInClick()"
+      onload="this.onload=function(){};handleClientLoad();"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
 </head> 
 <body style='width:100%; height:95%;' scrolling='no'>
+	   <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
+	 <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
 		<nav class="navbar navbar-default" style='height: 5%;'>
 		  <div class="container-fluid">
 			<div class="navbar-header" style='float: left'>
