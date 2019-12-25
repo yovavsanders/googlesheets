@@ -319,12 +319,14 @@
 		  
 	async function showExample(){
         //Create data object
-	var result = await gapi.client.sheets.spreadsheets.values.batchGet(params).then((response) => {
+	let result = await gapi.client.sheets.spreadsheets.values.batchGet(params).then((response) => {
 		  //var result = response.result;
 		  console.log(`${result.valueRanges.length} ranges retrieved.`);
 		});
- 	 }	
+ 	 	
 	console.log(result);
+		
+		
         var data = {  
                     wkts: ['POINT(196062.48 621458.39)', 'POINT(200000.48 600000.39)', 'POINT(25000.48 650000.39)' ],
                     names: ['p1','p2','p3'],  
