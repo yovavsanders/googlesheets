@@ -297,31 +297,62 @@
 
 		
 	$(function(){
-
-		$("#cbx_types li a").click(function(){
-		  govmap.setVisibleLayers([],[]);
-		  chosen_layer = $(this).text();
+		showExample();
+		//$("#cbx_types li a").click(function(){
+		 // govmap.setVisibleLayers([],[]);
+		//  chosen_layer = $(this).text();
 		  //alert(chosen_layer);
-		  var x = Array1[chosen_layer];
+		//  var x = Array1[chosen_layer];
 		  //alert(x);
-		  var ArrayLayersToRemove = [];
+		//  var ArrayLayersToRemove = [];
 		  //alert(ArrayAllLayers);
-		  for (i = 0; i < ArrayAllLayers.length; i++) { 
-			if (ArrayAllLayers[i] == x)
-			{
-			}
-			else
-			{
-				ArrayLayersToRemove.push(ArrayAllLayers[i]);
+		//  for (i = 0; i < ArrayAllLayers.length; i++) { 
+		//	if (ArrayAllLayers[i] == x)
+		//	{
+		//	}
+		//	else
+		//	{
+		//		ArrayLayersToRemove.push(ArrayAllLayers[i]);
 				//alert(ArrayAllLayers[i]);
-			}
+		//	}
 			
-		}
-		  govmap.setVisibleLayers([x],ArrayLayersToRemove); 
-	   });
+		//}
+		 // govmap.setVisibleLayers([x],ArrayLayersToRemove); 
+	   //});
 	});
 		  
-		
+	function showExample(){
+        //Create data object
+        var data = {  
+                    wkts: ['POINT(196062.48 621458.39)', 'POINT(200000.48 600000.39)', 'POINT(25000.48 650000.39)' ],
+                    names: ['p1','p2','p3'],  
+                    geometryType: govmap.drawType.Point,  
+                    defaultSymbol:  
+                    {  
+                        url:'http://www.creatingonline.com/webmaster/free_bullets/greenbullet1.gif',  
+                        width:15,  
+                        height:15  
+                    },  
+                    symbols: [  
+                        {url:'http://www.creatingonline.com/webmaster/free_bullets/goldbullet1.gif',  width:15, height:15},  
+                        {url:'http://www.creatingonline.com/webmaster/free_bullets/blackbullet1.gif',  width:15, height:15},  
+                        {url: 'http://www.creatingonline.com/webmaster/free_bullets/greenbullet1.gif', width: 15, height: 15 }  
+                    ],  
+                    clearExisting: true,  
+                    data: {  
+                        tooltips: ['ynet כלכלה','ynet חדשות','ynet תרבות'],  
+                        headers: ['כלכלה','חדשות','תרבות'],
+                        bubbles: ['L-6,00.html',
+                                  'L-2,00.html',
+                                  'L-538,00.html'],  
+                        bubbleUrl: 'https://www.ynet.co.il/home/0,7340,' 
+                    }  
+                };  
+            govmap.displayGeometries(data).then(function (response)  
+            {  
+              console.log(response.data);
+            });  
+    }	
 		 
 
 		
