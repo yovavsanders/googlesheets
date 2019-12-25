@@ -1,0 +1,290 @@
+﻿<html style='width:100%; height:100%;'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+ @import url(https://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+.navbar-brand {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+
+#tab_logic{
+	font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#mapi{
+	font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#myTitle{
+		font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#marker{
+			font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#OptionsButton
+{
+			font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#OptionsButton1
+{
+			font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#SelectButton
+{
+			font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#SelectButton1
+{
+			font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#CancelButton
+{
+			font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+#searchButton
+{
+			font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+}
+
+.modal.left .modal-dialog,
+	.modal.right .modal-dialog {
+		font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+			   
+		overflow-y: auto;
+		max-height:100%; 	   
+		direction: rtl;
+		position: fixed;
+		margin: 2%;
+		width: 320px;
+		-webkit-transform: translate3d(0%, 0, 0);
+		    -ms-transform: translate3d(0%, 0, 0);
+		     -o-transform: translate3d(0%, 0, 0);
+		        transform: translate3d(0%, 0, 0);
+	}
+
+	.modal.left .modal-content,
+	.modal.right .modal-content {
+		height: 100%;
+		overflow-y: auto;
+	}
+	
+	.modal.left .modal-body,
+	.modal.right .modal-body {
+		padding: 15px 15px 80px;
+		height: 100%;
+		overflow-y: auto;
+	}
+
+/*Left*/
+	.modal.left.fade .modal-dialog{
+		left: -320px;
+		-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+		        transition: opacity 0.3s linear, left 0.3s ease-out;
+	}
+	
+	.modal.left.fade.in .modal-dialog{
+		left: 0;
+	}
+       
+
+/* ----- MODAL STYLE ----- */
+	.modal-content {
+			font-family: "Alef Hebrew",
+               “Helvetica Neue”,
+               Helvetica,
+               Arial,
+               sans-serif;
+		border-radius: 0;
+		border: none;
+	}
+
+	.modal-header {
+		border-bottom-color: #EEEEEE;
+		background-color: #FAFAFA;
+	}
+	
+	.modal-backdrop {
+  display: none !important;
+}
+.modal-open .modal {
+    width: 300px;
+    margin: 0 auto;
+}
+	
+	
+
+	
+	
+	
+	table#tab_logic {
+    border-collapse: collapse;   
+}
+#tab_logic tr {
+    background-color: #eee;
+    border-top: 1px solid #fff;
+}
+#tab_logic tr:hover {
+    background-color: #ccc;
+}
+#tab_logic th {
+    background-color: #fff;
+}
+#tab_logic th, #tab_logic td {
+    padding: 3px 5px;
+}
+#tab_logic td:hover {
+    cursor: pointer;
+}
+
+
+		.button1 {
+		 background:none!important;
+		 color:blue;
+		 font-weight: bold;
+		}
+
+  </style> 
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script language="javascript" type="text/javascript" src="https://gisapp.taldor.co.il/govmap/govmap/api/govmap.api.js" ></script>
+
+<script type="text/javascript">  
+
+		var my_token = "aafedfe5-8dfa-4fd5-9af9-8b95759447bd";//yovavsanders.github.io
+//		var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990";//localhost
+//		var my_token = "4858f354-af1c-4b9b-9240-8bc2adfddbb2"//govmapuser01
+//		var my_token = "2f7fddd4-6e2e-4fad-8903-88a568dd553e"//govmapuser02
+//		var my_token = "e186f27c-b2b6-4189-9147-77c90905bebf"//govmapuser03
+//		var my_token = "ffbbee84-0e43-4df4-a9fb-4f0a25a1bb0f"//govmapuser04
+//		var my_token = "d67de6d9-2014-41b0-9a21-7ca50c0481f7"//govmapuser05
+		var my_token = "fdbc5be6-601c-4c9c-8525-0c63c9e58ac7"//govmapuser06
+//      var my_token = "efb55157-6caf-4e25-914d-3fbce2144d37";//new.govmap.gov.il
+//		var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";//govmap
+
+
+		
+        $(function(){
+			govmap.createMap('map_div',{
+				token: my_token,
+	            visibleLayers: ["ANTENA_ACTIVE"],
+	            layers: ["ANTENA_ACTIVE"],    
+	            showXY: true,  
+	            identifyOnClick:true  
+				
+	         }); 
+			 govmap.setBackground(0,1);
+		});
+
+
+    var Array1 = {};
+		Array1['אנטנות סלולריות']="ANTENA_ACTIVE";
+
+				
+	var ArrayAllLayers = new Array('ANTENA_ACTIVE');
+
+
+		
+	$(function(){
+
+		$("#cbx_types li a").click(function(){
+		  govmap.setVisibleLayers([],[]);
+		  chosen_layer = $(this).text();
+		  //alert(chosen_layer);
+		  var x = Array1[chosen_layer];
+		  //alert(x);
+		  var ArrayLayersToRemove = [];
+		  //alert(ArrayAllLayers);
+		  for (i = 0; i < ArrayAllLayers.length; i++) { 
+			if (ArrayAllLayers[i] == x)
+			{
+			}
+			else
+			{
+				ArrayLayersToRemove.push(ArrayAllLayers[i]);
+				//alert(ArrayAllLayers[i]);
+			}
+			
+		}
+		  govmap.setVisibleLayers([x],ArrayLayersToRemove); 
+	   });
+	});
+		  
+		
+		 
+
+		
+</script>  
+</head> 
+<body style='width:100%; height:95%;' scrolling='no'>
+		<nav class="navbar navbar-default" style='height: 5%;'>
+		  <div class="container-fluid">
+			<div class="navbar-header" style='float: left'>
+			<a id="myTitle" class="navbar-brand" href="#" style="font-size: 28px; color: #006dcc; text-align:right;">אנטנות סלולריות</a>		
+			</div>
+		</nav>
+
+		<form name="form" style='width: 100%; height: 90%;' scrolling='no'>
+			<div id="map_div" style="width:0% height:100% float:left"></div>  
+	    </form>
+
+		<footer style="position:relative;
+				height: 2%;
+				background: white; border-color: #0044cc #0044cc #002a80; background-repeat: repeat-x; text-align: right;">
+				<p style="font-size: 110%;margin: auto; width: 100%; height: 100%;">
+				<a id="mapi" href="https://www.govmap.gov.il">המרכז למיפוי ישראל 2019, אתר המפות הממשלתי</a>      
+				</p>
+				<p style="font-size: 110%;margin: auto; width: 100%; height: 100%;">
+				המידע המוצג במערכת אינו מדויק ואין להתייחס אליו בתור מידע רשמי
+				</p>
+		</footer>
+</body>  
+</html>
