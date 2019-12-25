@@ -272,57 +272,22 @@
         $(function(){
 		
 		
-			govmap.createMap('map_div',{
-				token: my_token,
-	            //visibleLayers: ["ANTENA_ACTIVE"],
-	            //layers: ["ANTENA_ACTIVE"],    
-	            showXY: true,  
-	            identifyOnClick:true  
+		govmap.createMap('map_div',{
+			token: my_token,
+	    		showXY: true,  
+	    		identifyOnClick:true  
 				
 	         }); 
 			 govmap.setBackground(0,1);
-		});
-
-
-   // var Array1 = {};
-//		Array1['אנטנות סלולריות']="ANTENA_ACTIVE";
-
-				
-//	var ArrayAllLayers = new Array('ANTENA_ACTIVE');
-
-
-		
-	$(function(){
-		showExample();
-		//$("#cbx_types li a").click(function(){
-		 // govmap.setVisibleLayers([],[]);
-		//  chosen_layer = $(this).text();
-		  //alert(chosen_layer);
-		//  var x = Array1[chosen_layer];
-		  //alert(x);
-		//  var ArrayLayersToRemove = [];
-		  //alert(ArrayAllLayers);
-		//  for (i = 0; i < ArrayAllLayers.length; i++) { 
-		//	if (ArrayAllLayers[i] == x)
-		//	{
-		//	}
-		//	else
-		//	{
-		//		ArrayLayersToRemove.push(ArrayAllLayers[i]);
-				//alert(ArrayAllLayers[i]);
-		//	}
-			
-		//}
-		 // govmap.setVisibleLayers([x],ArrayLayersToRemove); 
-	   //});
+			showExample();
 	});
 		  
-	async function showExample(){
+	const show = async () => {
         //Create data object
-	let result = await gapi.client.sheets.spreadsheets.values.batchGet(params).then((response) => {
+	let result = await gapi.client.sheets.spreadsheets.values.batchGet(params);
 		  //var result = response.result;
-		  console.log(`${result.valueRanges.length} ranges retrieved.`);
-		});
+		  //console.log(`${result.valueRanges.length} ranges retrieved.`);
+		//});
  	 	
 	console.log(result);
 		
