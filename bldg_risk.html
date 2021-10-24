@@ -46,7 +46,7 @@
          <v-main>
 
 
-   
+            <button id="authorize_button" style="display: none;">Authorize</button>
   
        <div style="width: 250px;
        height: 50px;
@@ -644,7 +644,7 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
         });
       }
 
-
+      var authorizeButton = document.getElementById('authorize_button');
       function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
