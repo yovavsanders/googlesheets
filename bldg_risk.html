@@ -372,18 +372,25 @@
                         vertical
                       ></v-divider>
                       <v-spacer></v-spacer>
-                      <v-divider
-                      class="mx-4"
-                      inset
-                      vertical
-                    ></v-divider>
+  
                         <v-btn
                         depressed
                         color="primary"
                         @click="logIn"
+                        v-show="!userIn"
                     >
                         עריכת נתונים
                     </v-btn>
+
+                    <v-btn
+                    depressed
+                    color="red"
+                    @click="logOut"
+                    v-show="userIn"
+                >
+                    יציאה מעריכה
+                </v-btn>
+
                       <v-dialog
                         v-model="edit_dialog"
                         max-width="500px"
@@ -1390,6 +1397,9 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
      methods: {
         logIn(){
             authenticate().then(loadClient);
+         },
+         logOut(){
+            gapi.auth2.getAuthInstance().signOut();
          },
         editItem (item) {
         
