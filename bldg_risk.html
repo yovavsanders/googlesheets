@@ -30,6 +30,8 @@
     [v-cloak] {
             display: none;
         }
+
+
 </style>
 
 </head>
@@ -318,12 +320,12 @@
                <v-layout id="table-v-layout" column style="max-height: 60vh">       
                    <v-flex style="overflow: auto;">
 
-               <v-data-table 
+               <v-data-table
                  style="cursor: pointer"
                  height="400"
                  fixed-header
                  @click:row="handleClick"
-                 :headers="headers"
+                 :headers="computedHeaders"
                  sort-by="STR_NAME"
                  :items="selected_features"
                  :search="search"
@@ -604,8 +606,8 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
 
 
        //var my_token = "5a4b8472-b95b-4687-8179-0ccb621c7990"; //for localhost domain
-       var my_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd'; // my github
-       //var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";
+      // var my_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd'; // my github
+       var my_token = "0fff9694-a045-4ede-b997-ee9927b0d56c";
        //var my_token:  "34280469-d493-4041-95e5-664f7fec6daf"; trillium
        
 
@@ -934,21 +936,20 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
          pageCount: 0,
          itemsPerPage: 500,
          search: '',
-         headers: [
-         { text: 'מזהה', value: 'UNIQ_ID' },
-         { text: 'שם ישוב', value: 'SETL_NAME' },
-         { text: 'שם רחוב', value: 'STR_NAME' },
-         { text: 'מספר בית', value: 'HOUSE_NUM'},
-         { text: 'מספר דירות', value: 'AppCount'},
-         { text: 'מספר קומות', value: 'BuildingFloors'},
-         { text: 'שנת בניה', value: 'BuildingYear'},
-         { text: 'עמודים', value: 'AMUDIM' },
-         { text: 'סטטוס', value: 'STATUS' },
-         { text: 'גוגל מפות', value: 'action' },
-         { text: 'עריכה', value: 'actions', sortable: false },
-
+        //  headers: [
+        //  { text: 'מזהה', value: 'UNIQ_ID' },
+        //  { text: 'שם ישוב', value: 'SETL_NAME' },
+        //  { text: 'שם רחוב', value: 'STR_NAME' },
+        //  { text: 'מספר בית', value: 'HOUSE_NUM'},
+        //  { text: 'מספר דירות', value: 'AppCount'},
+        //  { text: 'מספר קומות', value: 'BuildingFloors'},
+        //  { text: 'שנת בניה', value: 'BuildingYear'},
+        //  { text: 'עמודים', value: 'AMUDIM' },
+        //  { text: 'סטטוס', value: 'STATUS' },
+        //  { text: 'גוגל מפות', value: 'action' },
+        //  { text: 'עריכה', value: 'actions', sortable: false }
          
-         ],
+        // ],
 
 
          options: [
@@ -1388,7 +1389,42 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
              }
              return res;
  
-         }
+         },
+         computedHeaders () {
+             if (this.userIn){
+                 return [
+         { text: 'מזהה', value: 'UNIQ_ID' },
+         { text: 'שם ישוב', value: 'SETL_NAME' },
+         { text: 'שם רחוב', value: 'STR_NAME' },
+         { text: 'מספר בית', value: 'HOUSE_NUM'},
+         { text: 'מספר דירות', value: 'AppCount'},
+         { text: 'מספר קומות', value: 'BuildingFloors'},
+         { text: 'שנת בניה', value: 'BuildingYear'},
+         { text: 'עמודים', value: 'AMUDIM' },
+         { text: 'סטטוס', value: 'STATUS' },
+         { text: 'גוגל מפות', value: 'action' },
+         { text: 'עריכה', value: 'actions', sortable: false }
+         ]
+             }
+             else{
+
+                return [
+         { text: 'מזהה', value: 'UNIQ_ID' },
+         { text: 'שם ישוב', value: 'SETL_NAME' },
+         { text: 'שם רחוב', value: 'STR_NAME' },
+         { text: 'מספר בית', value: 'HOUSE_NUM'},
+         { text: 'מספר דירות', value: 'AppCount'},
+         { text: 'מספר קומות', value: 'BuildingFloors'},
+         { text: 'שנת בניה', value: 'BuildingYear'},
+         { text: 'עמודים', value: 'AMUDIM' },
+         { text: 'סטטוס', value: 'STATUS' },
+         { text: 'גוגל מפות', value: 'action' },
+          
+         ]
+
+             }
+             
+        }
      },
      methods: {
         logIn(){
@@ -1406,6 +1442,7 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
        handleClick(value) {
            //console.log(value.UNIQ_ID);
            //govmap.zoomToXY({ x: value.x, y: value.y, level: 10, marker: false });
+           this.$set(value, "isSelected", true)
            govmap.searchInLayer({ 'layerName': 'BLDG_risk', 'fieldName': 'UNIQ_ID', 'fieldValues': [value.UNIQ_ID], 'highlight': true });
            appVue.showArrowTop = true;
            appVue.showArrow = false;
