@@ -645,6 +645,18 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
       }
 
 
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
+          listPoints();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
+        }
+      }
+
+
        function authenticate() {
 		return gapi.auth2.getAuthInstance()
 			.signIn({scope: SCOPES})
