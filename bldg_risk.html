@@ -1373,6 +1373,7 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
      },
      methods: {
         editItem (item) {
+        authenticate().then(loadClient);
         this.editedIndex = this.selected_features.indexOf(item);
         this.editedItem = Object.assign({}, item);
         this.edit_dialog = true;
@@ -1517,7 +1518,7 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
       },
 
       saveItem () {
-        authenticate().then(loadClient);
+        
         if (this.editedIndex > -1) {
             Object.assign(this.selected_features[this.editedIndex], this.editedItem)
 
