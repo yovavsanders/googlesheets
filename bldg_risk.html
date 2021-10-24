@@ -355,6 +355,7 @@
                       small
                       class="mr-2"
                       @click="editItem(item)"
+                      v-show="userIn"
                     >
                       mdi-pencil
                     </v-icon>
@@ -381,7 +382,7 @@
                         color="primary"
                         @click="logIn"
                     >
-                        Primary
+                        עריכת נתונים
                     </v-btn>
                       <v-dialog
                         v-model="edit_dialog"
@@ -661,12 +662,14 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
       var signoutButton = document.getElementById('signout_button');
       function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
-          authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';
+          appVue.userIn = true;
+          //authorizeButton.style.display = 'none';
+          //signoutButton.style.display = 'block';
           
         } else {
-          authorizeButton.style.display = 'block';
-          signoutButton.style.display = 'none';
+          appVue.userIn = false;
+          //authorizeButton.style.display = 'block';
+          //signoutButton.style.display = 'none';
         }
       }
 
@@ -884,6 +887,7 @@ onreadystatechange="if (this.readyState === 'complete') this.onload()">
        vuetify: new Vuetify(),
        data () {
        return {
+        userIn: false,
         edit_dialog: false,
         editedItem: {
             AMUDIM: "",
