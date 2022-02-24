@@ -39,7 +39,7 @@
 	    
 	console.log("ok");
 	  
-     function AddUserPoint(x, y, name, insert_row){	
+     function AddUserPoint(x, y, name, insert_row){
 		var bubbleContent = "<div style='border: 1px solid #525252; margin: 10px;padding: 10px;'><div style='background-color: yellow;'>{0}</div><div               style='background-color: blue;'>{1}</div></div>";
 		var data = {  
 		wkts: ["POINT(("+x+" "+y+"))"],  
@@ -173,7 +173,7 @@
 	      var x = row[4];
 	      var y = row[5];
 	      var name = row[1];
-	      AddUserPoint( x, y, name, false);
+	      AddUserPoint( x, y, PointCount + " " +name, false);
             }
           } else {
             appendPre('No data found.');
@@ -225,7 +225,7 @@
 		// get map click
 		govmap.onEvent(govmap.events.CLICK).progress(function (click_result)
 		{
-			PointCount = PointCount + 1;
+			PointCount = PointCount = + 1;
 			var x = click_result.mapPoint.x;
 			var y = click_result.mapPoint.y
 			AddUserPoint(x, y, " נקודה חדשה" , true)
