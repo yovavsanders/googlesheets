@@ -63,6 +63,7 @@
 		{  
 		  console.log(response.data);
 		  if (insert_row){
+			  console.log(insert_row);
 			  execute([PointCount, "נקודה חדשה", "", "", x, y]);
 			  appendPre(PointCount + ", " + "נקודה חדשה" + ', ' +x + ', ' + y);
 		  }
