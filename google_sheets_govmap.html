@@ -60,10 +60,10 @@
 				bubbleHTMLParameters:[[name, 'מידע נוסף...']]
 		      }  
                 };  
-				  
+		console.log(insert_row);		  
 		govmap.displayGeometries(data).then(function (response)  
 		{  
-		  console.log(response.data);
+		  console.log(response);
 		  if (insert_row){
 			  console.log(insert_row);
 			  execute([PointCount, "נקודה חדשה" + " " + PointCount, "", "", x, y]);
