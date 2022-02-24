@@ -43,7 +43,7 @@
 		var bubbleContent = "<div style='border: 1px solid #525252; margin: 10px;padding: 10px;'><div style='background-color: yellow;'>{0}</div><div               style='background-color: blue;'>{1}</div></div>";
 		var data = {  
 		wkts: ["POINT(("+x+" "+y+"))"],  
-		names: [name],  
+		names: [name + " " + PointCount],  
 		geometryType: govmap.drawType.Point,  
 	    	defaultSymbol:  
 		{  
@@ -54,8 +54,8 @@
 		symbols: [],  
 		clearExisting: false,  
 		data: {  
-				tooltips: [name],  
-				headers: [name],
+				tooltips: [name + " " + PointCount],  
+				headers: [name + " " + PointCount],
 				bubbleHTML: bubbleContent,
 				bubbleHTMLParameters:[[name, 'מידע נוסף...']]
 		      }  
@@ -66,8 +66,8 @@
 		  console.log(response.data);
 		  if (insert_row){
 			  console.log(insert_row);
-			  execute([PointCount, "נקודה חדשה", "", "", x, y]);
-			  appendPre(PointCount + ", " + "נקודה חדשה" + ', ' +x + ', ' + y);
+			  execute([PointCount, "נקודה חדשה" + " " + PointCount, "", "", x, y]);
+			  appendPre(PointCount + ", " + "נקודה חדשה" + " " + PointCount + ', ' +x + ', ' + y);
 		  }
 		}); 
      }
