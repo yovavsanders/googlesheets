@@ -748,13 +748,20 @@
                                     <v-list-item style="margin-top: -10px; width: 270px;">
                                         <v-list-item-content v-if="item.Link">
                                             <p style="word-break: break-word !important; color: white !important;font-family: 'Open Sans', sans-serif !important; font-size:8pt; font-weight:600; ">פרויקט/ תהליך דיגיטלי למאגר הידע והלמידה של הקהילה</p>
+                                            <v-row>
+                                                <v-col cols="12">
                                             <v-text-field style="margin-top: 15px; width: 270px; font-size:9pt;" dir="rtl"
                                               placeholder='דאטה, או"ש, חווית משתמש /עיצוב שירות'
                                               clearable
                                               solo-inverted
                                               hide-details
                                               color="warning"
+                                              v-model="item.Notes"
+                                              :append-outer-icon="item.Notes ? 'mdi-send' : 'null'"
+                                              @click:append-outer="sendMessage(item.FirstName, item.LastName, item.Notes);"
                                             ></v-text-field>
+                                                </v-col>
+                                            </v-row>
                                         </v-list-item-content>
                                     </v-list-item>
 
@@ -1053,6 +1060,7 @@ var appVue = new Vue({
     vuetify: new Vuetify(),
     data () {
         return {
+        message: null,
         prevRow: null,
         userIn: false,
         showArrow: false,
@@ -1140,6 +1148,11 @@ var appVue = new Vue({
     },
 
     methods: {
+        sendMessage(FirstName, LastName, Notes){
+            console.log(FirstName, LastName, Notes);
+            updateItem(FirstName + " " + LastName, Notes);
+
+        },
         logIn(){
             authenticate().then(loadClient);
          },
