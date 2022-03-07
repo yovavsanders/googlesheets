@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html style='width:100%; height:100%;'>
 <head>
@@ -757,7 +756,7 @@
                                               hide-details
                                               color="warning"
                                               v-model="item.Notes"
-                                              :append-outer-icon="item.Notes ? 'mdi-send' : 'null'"
+                                              :append-outer-icon="item.Notes && userIn ? 'mdi-send' : 'null'"
                                               @click:append-outer="sendMessage(item.FirstName, item.LastName, item.Notes);"
                                             ></v-text-field>
                                                 </v-col>
