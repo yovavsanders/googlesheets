@@ -861,6 +861,14 @@
           </v-container>
 
 
+          <v-snackbar
+          v-model="snackbar"
+        >
+          הנתונים עודכנו בהצלחה
+    
+        </v-snackbar>
+
+
          
  
 
@@ -1022,6 +1030,7 @@ function handleClientLoad() {
                           
                         }
                     }
+                    appVue.snackbar = true;
                 }
             });
         }, 1000);
@@ -1059,6 +1068,7 @@ var appVue = new Vue({
     vuetify: new Vuetify(),
     data () {
         return {
+        snackbar: false,
         message: null,
         prevRow: null,
         userIn: false,
