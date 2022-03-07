@@ -756,7 +756,7 @@
                                               hide-details
                                               color="warning"
                                               v-model="item.Notes"
-                                              :append-outer-icon="item.Notes && userIn == true ? 'mdi-send' : 'null'"
+                                              :append-outer-icon="item.Notes ? 'mdi-send' : 'null'"
                                               @click:append-outer="sendMessage(item.FirstName, item.LastName, item.Notes);"
                                             ></v-text-field>
                                                 </v-col>
