@@ -1,0 +1,1588 @@
+
+
+<!DOCTYPE html>
+<html style='width:100%; height:100%;'>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<head>
+  <title>מובילים דיגיטליים על המפה</title>
+
+
+
+  <script src="https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated"></script>  
+  <link rel= 'stylesheet' href= 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/@mdi/font@3.x/css/materialdesignicons.min.css" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ <script language="javascript" type="text/javascript" src="https://www.govmap.gov.il/govmap/api/govmap.api.js" ></script>
+
+
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+ <script src="https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated"></script> 
+ <script src="https://cdn.jsdelivr.net/gh/inotom/vue-nav-drawer@v1.2.0/dist/vue-nav-drawer.min.js"></script>
+</head>
+
+
+
+<body style='width:100%; height:95%;' scrolling='no' dir="rtl">
+
+  
+    <div id="app" style="background-color: #ECEFF1"  v-cloak>
+      <v-app style="background-color: #ECEFF1">
+ 
+        <nav-drawer-handle v-if="isMobile()" id="navbtn" style="background-color: #ECEFF1 !important;
+        color: #00305b !important;">
+        </nav-drawer-handle>
+
+        <nav-drawer id="navdrawer" v-if="isMobile()" >
+          
+          <div style="background-color: #18446c !important; height: 100%; width: 100%;">
+            <div style="height: 50px; background-color: #ECEFF1"></div>
+
+            <v-row v-if="isMobile()"
+            justify="center">
+
+              <v-menu
+              :close-on-content-click="true"
+              :nudge-width="150"
+              offset-y
+                   
+
+             
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                v-bind="attrs"
+                v-on="on"
+                style="margin-top:10px;  font-family: 'Open Sans', sans-serif; font-size:14pt; font-weight:600;"
+                color="#fabd1a"
+                plain
+                x-large
+                  
+                >
+                 שלטון מרכזי
+              </v-btn>
+              </template>
+        
+              <v-list dark style="align-items:center; cursor: pointer;" color="#003154">
+                <v-list-item
+                  v-for="(item, index) in merkazi_items"
+                  :key="index" style="text-align: center;" @click="selectItem(item)"
+                >
+                  <v-list-item-title  style="font-family: 'Open Sans', sans-serif;">{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+             
+            </v-row>
+
+            <v-row v-if="isMobile()"
+            justify="center">
+
+
+            
+            <v-menu
+            :close-on-content-click="true"
+      :nudge-width="150"
+      offset-y
+           
+           
+          >
+
+         
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+              v-bind="attrs"
+              v-on="on"
+              style="margin-top:10px;  font-family: 'Open Sans', sans-serif; font-size:14pt; font-weight:600;"
+              color="#fabd1a"
+              plain
+              x-large
+              
+                
+              >
+               שלטון מקומי
+            </v-btn>
+            </template>
+      
+            <v-list center dark style="cursor: pointer;" color="#003154">
+              <v-list-item
+                v-for="(item, index) in mekomi_items"
+                :key="index" style="text-align: center;" @click="selectItem(item)"
+              >
+                <v-list-item-title style="font-family: 'Open Sans', sans-serif;">{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+
+            </v-row>
+
+            <v-row v-if="isMobile()"
+            justify="center">
+
+            <v-menu
+
+            :close-on-content-click="true"
+      :nudge-width="150"
+      offset-y
+           
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+              v-bind="attrs"
+              v-on="on"
+              style="margin-top:10px;  font-family: 'Open Sans', sans-serif; font-size:14pt; font-weight:600;"
+              color="#fabd1a"
+              plain
+              x-large
+              
+                
+              >
+               שותפים וצוות
+            </v-btn>
+            </template>
+      
+            <v-list center dark style="cursor: pointer;" color="#003154">
+              <v-list-item
+                v-for="(item, index) in shutafim_items"
+                :key="index" style="text-align: center;" @click="selectItem(item)"
+              >
+                <v-list-item-title style="font-family: 'Open Sans', sans-serif;">{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+
+            </v-row>
+
+          
+          </div>
+        </nav-drawer>
+
+
+        <v-app-bar fixed v-if="!isMobile()"
+        style="height:45px;
+        background-color:#26495e;"
+                      
+        dense>
+
+
+
+
+        <div style="width:180px;">
+
+      <v-chip
+      class="ma-3"
+      color="#fabd1a" style="font-family: 'Open Sans', sans-serif !important;"
+      outlined>
+      {{selectedTitle.title}} - {{selectedTitle.program}}
+    </v-chip>
+   </div>
+     
+    </v-toolbar-title>
+
+
+          
+        <v-spacer></v-spacer>
+
+        <v-toolbar-title
+        color="#003154"
+        dark
+        style="font-family: 'Open Sans', sans-serif; color:#ECEFF1"
+        
+      >
+
+ 
+      מובילים דיגיטליים – קהילה של רשתות
+    
+     
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
+
+    <div style="width:180px;"
+    
+  ></div>
+    </v-app-bar>
+
+    <v-app-bar fixed v-if="!isMobile()"
+    style="height:25px; margin-top: 45px;
+    background-color:#26495e;" dark
+   
+                  
+    dense>
+    <v-spacer></v-spacer>
+    <p class="text-wrap" class="wrap-text" style="margin-top: -15px; color: #fabd1a !important; font-family: 'Open Sans', sans-serif !important; font-size:10pt"> מובילים את הטרנספורמציה הדיגיטלית בשירות הציבור</p>
+    <v-spacer></v-spacer>
+    </v-app-bar>
+
+
+            <v-app-bar
+            
+              color="#003154"
+              dense
+              dark
+              style="height:65px; margin-top: 70px;"
+              v-if="!isMobile()"
+            >
+
+              <v-spacer v-if="!isMobile()" ></v-spacer>
+             
+
+              <div v-if="!isMobile()" style="width: 250px"></div>
+
+
+
+              
+
+              <v-spacer v-if="!isMobile()"></v-spacer>
+
+              <v-menu
+              open-on-hover
+              offset-y
+
+             
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-toolbar-title
+                  color="#003154"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  style="margin-top:10px; font-family: 'Open Sans', sans-serif; font-size:12pt"
+                  
+                >
+                 שלטון מרכזי
+              </v-toolbar-title>
+              </template>
+        
+              <v-list dark style="align-items:center; cursor: pointer;" color="#003154">
+                <v-list-item
+                  v-for="(item, index) in merkazi_items"
+                  :key="index" style="text-align: center;" @click="selectItem(item)"
+                >
+                  <v-list-item-title  style="font-family: 'Open Sans', sans-serif;">{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+            <v-spacer></v-spacer>
+
+            <v-divider vertical style="margin-top:8px; border-color:white !important;"></v-divider>
+
+            <v-spacer></v-spacer>
+
+              <v-menu
+              open-on-hover
+              offset-y
+             
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-toolbar-title
+                  color="#003154"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  style="margin-top:10px; font-family: 'Open Sans', sans-serif;  font-size:12pt"
+                  
+                >
+                 שלטון מקומי
+              </v-toolbar-title>
+              </template>
+        
+              <v-list center dark style="cursor: pointer;" color="#003154">
+                <v-list-item
+                  v-for="(item, index) in mekomi_items"
+                  :key="index" style="text-align: center;" @click="selectItem(item)"
+                >
+                  <v-list-item-title style="font-family: 'Open Sans', sans-serif;">{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+            
+            <v-spacer></v-spacer>
+
+            <v-divider vertical style="margin-top:8px; border-color:white !important;"> </v-divider>
+
+            <v-spacer></v-spacer>
+
+              <v-menu
+              open-on-hover
+              offset-y
+             
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-toolbar-title
+                  color="#003154"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  style="margin-top:10px; font-family: 'Open Sans', sans-serif;  font-size:12pt"
+                  
+                >
+                שותפים וצוות
+              </v-toolbar-title>
+              </template>
+        
+              <v-list center dark style="cursor: pointer;" color="#003154">
+                <v-list-item
+                  v-for="(item, index) in shutafim_items"
+                  :key="index" style="text-align: center;" @click="selectItem(item)"
+                >
+                  <v-list-item-title style="font-family: 'Open Sans', sans-serif;">{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+
+            <v-spacer v-if="!isMobile()"></v-spacer>
+
+            <div v-if="!isMobile()" style="width: 250px"></div>
+            
+              <v-spacer v-if="!isMobile()"></v-spacer> 
+           
+            </v-app-bar>         
+          
+
+
+            <v-container>
+            <v-row v-bind:style=" !isMobile() ? 'margin-top:5px;' : 'background-color: #546E7A' "> 
+         
+                <v-col cols="12"  xs="12" sm="12" md="6" style="max-height: 750px;">
+                  <v-card   color="blue-grey darken-1"
+                  dark style="border: 5px solid #003154 !important; margin-bottom:25px; margin: 25px;" id = "filters" :height="filtersHeight()">
+                    <v-container>
+
+                      <v-row justify="center" style="margin:5px;">
+                        <v-row
+                        class="pa-4"
+                        justify="center"
+                        v-if="isMobile()"
+                        >
+                        <v-col class="text-center" style="font-family: 'Open Sans', sans-serif;">
+                            <span class="grey--text text--lighten-1">
+                              <v-chip
+                              class="ma-3"
+                              color="#fabd1a" style="font-family: 'Open Sans', sans-serif !important;"
+                              outlined>
+                              {{selectedTitle.title}} - {{selectedTitle.program}}
+                            </v-chip>
+                            </span>
+                            <v-divider></v-divider>
+                            <h2 style="font-family: 'Open Sans', sans-serif;">
+                                מובילים דיגיטליים - קהילה של רשתות
+                            </h2>
+  
+                            <span class="grey--text text--lighten-1" style="font-family: 'Open Sans', sans-serif;">מובילים את הטרנספורמציה הדיגיטלית בשירות הציבורי</span>
+                        </v-col>
+                        </v-row>
+                          
+                      
+                          <v-form>
+                         
+                            <v-radio-group
+                            v-model="radios"
+                            mandatory
+                          >
+                          
+                              <v-row>
+  
+                                <v-col cols="12" md="12" id="combo">
+                                  <v-autocomplete style="margin-right: 10px"
+                                  v-model="friends"
+                                  :items="people"
+                                  filled
+                                  :disabled="isUpdating"
+                                  chips
+                                  color="blue-grey lighten-2"
+                                  placeholder="שם ושם משפחה"
+                                  item-text="name"
+                                  item-value="name"
+                                  multiple
+                                  @change="autoComplete()"
+                                  
+                                  >
+                                  <template style="height: 56px" v-slot:selection="data">
+                                      <v-chip right
+                                      v-bind="data.attrs"
+                                      :input-value="data.selected"
+                                      close
+                                      @click="data.select"
+                                      @click:close="remove(data.item)"
+                                      >
+                                      <v-avatar right>
+                                          <v-img :src="data.item.avatar"></v-img>
+                                      </v-avatar>
+                                      {{ data.item.name }}
+  
+                                      </v-chip>
+                                  </template>
+                                  <template v-slot:item="data">
+                                      <template v-if="typeof data.item !== 'object'">
+                                      <v-list-item-content v-text="data.item"></v-list-item-content>
+                                      </template>
+                                      <template v-else>
+                                      <v-list-item-avatar>
+                                          <img :src="data.item.avatar">
+                                      </v-list-item-avatar>
+                                      <v-list-item-content>
+                                          <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                                          <v-list-item-subtitle v-html="data.item.group"></v-list-item-subtitle>
+                                      </v-list-item-content>
+                                      </template>
+                                  </template>
+                                  </v-autocomplete>
+                              </v-col>
+  
+                              <v-col
+                                  cols="12"
+                                  md="6"
+                              >
+                              <v-layout row wrap>
+                              <v-flex xs1 style="margin-top: 18px;">
+                                <v-radio
+                                value="role_radio"
+                                style="margin-bottom: 25px; margin-right:-8px"
+                                color="#f7de9d"
+                                >
+                                </v-radio>
+                              </v-flex>
+                              <v-flex xs11>
+                                    <v-select
+                                    :disabled="!(radios=='role_radio')"
+                                    v-model="role_item"
+                                    :disabled="isUpdating"
+                                    filled
+                                    color="blue-grey lighten-2"
+                                    placeholder="תפקיד"
+                                    :items="role_items"
+                                    @change="roleChanged()"
+                                    >
+                                  </v-select>
+                                </v-flex>
+                              </v-layout>
+  
+                              </v-col>
+                              <v-col
+                                  cols="12"
+                                  md="6"
+                              >
+                              <v-layout row wrap>
+                                <v-flex xs1 style="margin-top: 18px;">
+                                <v-radio
+                                value="org_radio" color="#f7de9d"
+                                style="margin-bottom: 25px; margin-right:-8px">
+  
+                                </v-radio>
+                                </v-flex>
+                                <v-flex xs11>
+                                  <v-select
+                                  :disabled="!(radios=='org_radio')"
+                                  v-model="org_item"
+                                  filled
+                                  color="blue-grey lighten-2"
+                                  placeholder="ארגון"
+                                  :items="org_items"
+                                  @change="orgChanged()"
+                                  ></v-select>
+                                </v-flex>
+                              </v-layout>
+                                
+                              </v-col>
+                              <v-col 
+                                  cols="12"
+                                  md="6"
+                              >
+                              <v-layout row wrap>
+                                <v-flex xs1 style="margin-top: 18px;">
+                                <v-radio
+                                value="setl_radio" color="#f7de9d"
+                                style="margin-bottom: 25px; margin-right:-8px">
+                                </v-radio>
+                                </v-flex>
+                                <v-flex xs11>
+                                <v-select
+                                :disabled="!(radios=='setl_radio')"
+                                v-model="setl_item"
+                                filled
+                                color="blue-grey lighten-2"
+                                placeholder="אזור מגורים"
+                                :items="setl_items"
+                                @change="setlChanged()"
+                                ></v-select>
+                              </v-layout>
+                                
+                              </v-col>
+  
+     
+  
+                              <v-col 
+                              cols="12"
+                              md="6"
+                          >
+                          <v-layout row wrap>
+                            <v-flex xs1 style="margin-top: 18px;">
+                              <v-radio
+                              value="tochnit_radio" color="#f7de9d"
+                              style="margin-bottom: 25px; margin-right:-8px">
+                              </v-radio>
+                            </v-flex>
+                            <v-flex xs11>
+                                <v-autocomplete
+                                :disabled="!(radios=='tochnit_radio')"
+                                v-model="tochnit_item"
+                                filled
+                                color="blue-grey lighten-2"
+                                placeholder="תכנית"
+                                :items="tochnit_items"
+                                @change="tochnitChanged()"
+                                ></v-autocomplete>
+                          </v-layout>
+                          </v-col>
+  
+  
+                            
+                              </v-row>
+  
+  
+  
+                            </v-radio-group>
+                        
+                          </v-form>
+                       
+                          <v-divider></v-divider>
+                        </v-container>
+                  
+                </v-card>
+
+                </v-col>
+                <v-col cols="12"  xs="12" sm="12" md="6" style="max-height: 750px;">
+                        <v-card style="background-color: #ffffff !important;
+                        border: 5px solid #003154 !important; margin-bottom:25px; margin: 25px;" id = "map" :height="mapHeight()"></v-card>
+                </v-col>
+              
+            </v-row>
+          </v-container>
+          
+          <v-container>
+            <v-row style="background-color: #ECEFF1" v-if="items.length" justify="center">
+              <v-container>
+                <v-data-iterator
+                  :items="items"
+                  :items-per-page.sync="itemsPerPage"
+                  :page.sync="page"
+                  :search="search"
+                  :sort-by="sortBy.toLowerCase()"
+                  :sort-desc="sortDesc"
+                  hide-default-footer
+                >
+                  <template v-slot:header>
+                    <v-toolbar
+                      dark
+                      color="#01579B"
+                      class="mb-1"
+                      style="background-image: url('https://cdn.pixabay.com/photo/2016/08/31/17/02/blue-1634110_960_720.png');
+                      background-repeat: no-repeat;
+                      background-position: 50% 0;
+                      background-size: cover;"
+                    >
+
+
+                    {{items.length}}
+                   
+                
+
+                  <h3 style="margin-right: 5px; font-family: Alef Hebrew" v-if="items.length && !isMobile()">תוצאות </h3>
+
+                      <v-text-field dir="rtl" v-if="items.length"
+                      style="font-family: Alef Hebrew; margin-right: 20px;"
+                        v-model="search"
+                        placeholder="חיפוש בתוצאות"
+                        clearable
+                        flat
+                        solo-inverted
+                        hide-details
+                        prepend-inner-icon="mdi-magnify"
+                      ></v-text-field>
+
+
+                   
+  
+                      <v-btn
+                      depressed
+                      color="primary"
+                      @click="logIn"
+                      v-show="!userIn"
+                      class="ma-2"
+                  >
+                      עריכת נתונים
+                      <v-icon dark>mdi-file-edit-outline</v-icon>
+                </v-btn>
+
+
+                <v-btn
+                depressed
+                color="error"
+                @click="logOut"
+                v-show="userIn"
+            >
+            יציאה מעריכה
+            </v-btn>
+
+
+                      <v-btn
+                      class="mx-2"
+                      fab
+                      small
+                      dark
+                      color="red" 
+                      v-if="items.length < json.length && items.length"
+                      @click="refreshItems"
+                    >
+                      <v-icon dark>
+                        mdi-close
+                      </v-icon>
+                    </v-btn>
+                    </v-toolbar>
+                  </template>
+            
+                  <template v-slot:default="props">
+                    <v-row justify="center" style="font-family: Alef Hebrew">
+                      <v-col
+                        v-for="item in props.items"
+                        :key="item.name"
+                        cols="12"
+                        sm="6"
+                        md="4"
+                        lg="4"
+                        xl="3"
+                       
+                      >
+                        <v-card height="559" dark style="font-family: 'Open Sans', sans-serif; background-size: cover; background-image: url('https://raw.githubusercontent.com/yovavsanders/govmap/master/Dg%20Map%20Member%20Card%20BG.png');"> 
+
+                          <v-card-title>
+                            <div v-if="!item.Link" style="height: 30px">
+
+                            </div>
+
+            
+
+                            <v-row
+                            class="fill-height"
+                            style="margin-top:1px; margin-right:5px;"
+                          >
+                            <v-col
+                              align-self="start"
+                              class="pa-0"
+                              cols="12"
+                            >
+ 
+                    
+      <div style="max-width: 120px; border: 1px solid #01579B !important; background-color: slategray;">
+        <v-img :src="item.Img"                  
+        max-height="160"
+        max-width="120"></v-img>
+
+      </div>
+                                
+
+                          
+
+                              
+                            </v-col>
+
+                            <v-col class="wrap-text">
+                              <div v-show="!item.Link" style="height: 50px">
+                                
+
+                              </div>
+                                <v-list-item style="margin-right: -20px; max-width:450px; color: white!important;"
+                                  color="rgba(0, 0, 0, .4)"
+                                  dark
+                                >
+                                  <v-list-item-content>
+                                    <v-list-item-title style="font-family: 'Open Sans', sans-serif !important; font-size:16pt; font-weight:600; ">
+                                        {{ item.FirstName }}    {{ item.LastName }}
+                                    </v-list-item-title>
+                                    <p style="word-break: break-word !important; color: white !important;font-family: 'Open Sans', sans-serif !important; font-size:11pt">  {{ item.Role }}</p>
+                                    <p class="text-wrap" class="wrap-text" style="color: #fabd1a !important; font-family: 'Open Sans', sans-serif !important; font-size:10pt">  {{ item.Organization }}</p>
+                                    <v-row style="width:100%">
+                                        <v-col cols="5" style="margin-right: -35px; margin-top: 3px;">
+                                                <v-img
+
+                                                max-height="150"
+                                                max-width="150"
+                                                  src="https://raw.githubusercontent.com/yovavsanders/govmap/master/Dg%20Map%20Member%20Card%20In%20Icon%20png-.png"
+                                                > 
+                                        </v-col>
+                                        <v-col style="margin-right: -40px" cols="7">
+                                            <p style="margin-top: 18px; word-break: break-word !important; color: white !important;font-family: 'Open Sans', sans-serif !important; font-size:11pt"> {{item.Email}}</p>
+                                            <p style="margin-top: -10px; word-break: break-word !important; color: white !important;font-family: 'Open Sans', sans-serif !important; font-size:11pt"> {{item.Mobile}}</p>
+                                        </v-col>
+                                    </v-row>
+                                  
+                                    <v-list-item style="margin-top: -30px; margin-right: -17px;">
+                                        <v-list-item-content v-if="item.Link">
+                                            <a style="word-break: break-word !important; color: white !important;font-family: 'Open Sans', sans-serif !important; font-size:11pt" target="_blank" :href="item.Link">עוד עליי</a>
+                                        </v-list-item-content>
+                                    </v-list-item>  
+                                    <v-list-item style="margin-top: -10px; width: 270px;">
+                                        <v-list-item-content v-if="item.Link">
+                                            <p style="word-break: break-word !important; color: white !important;font-family: 'Open Sans', sans-serif !important; font-size:8pt; font-weight:600; ">פרויקט/ תהליך דיגיטלי למאגר הידע והלמידה של הקהילה</p>
+                                            <v-text-field style="margin-top: 15px; width: 270px; font-size:9pt;" dir="rtl"
+                                              placeholder='דאטה, או"ש, חווית משתמש /עיצוב שירות'
+                                              clearable
+                                              solo-inverted
+                                              hide-details
+                                              color="warning"
+                                            ></v-text-field>
+                                        </v-list-item-content>
+                                    </v-list-item>
+
+                                   
+                                  </v-list-item-content>
+
+                                </v-list-item>
+
+       
+
+                     
+
+
+
+
+
+
+                              </v-col>
+                          </v-card-title>
+            
+                        
+            
+                          <v-list
+                          style="background-color: #00000000;"
+                          
+                          dense
+                        >
+    
+                        </v-list>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </template>
+            
+                  <template v-slot:footer>
+                    <v-row
+                      class="mt-2"
+                      justify="center"
+                    >
+                      <span style="font-family: 'Open Sans', sans-serif !important;" class="black--text">תוצאות לעמוד</span>
+                      <v-menu offset-y>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                            dark
+                            text
+                            color="primary"
+                            class="ml-2"
+                            v-bind="attrs"
+                            v-on="on"
+                          >
+                            {{ itemsPerPage }}
+                            <v-icon>mdi-chevron-down</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list>
+                          <v-list-item
+                            v-for="(number, index) in itemsPerPageArray"
+                            :key="index"
+                            @click="updateItemsPerPage(number)"
+                          >
+                            <v-list-item-title>{{ number }}</v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+            
+                      <v-spacer></v-spacer>
+            
+                      <span
+                        class="mr-4
+                        black--text"
+                        style="font-family: 'Open Sans', sans-serif !important;"
+                      >
+                        עמוד {{ page }} מתוך {{ numberOfPages }}
+                      </span>
+                      <v-btn
+                        fab
+                        dark
+                        color="blue darken-3"
+                        class="mr-1"
+                        @click="formerPage"
+                      >
+                        <v-icon>mdi-chevron-left</v-icon>
+                      </v-btn>
+                      <v-btn
+                        fab
+                        dark
+                        color="blue darken-3"
+                        class="ml-1"
+                        @click="nextPage"
+                      >
+                        <v-icon>mdi-chevron-right</v-icon>
+                      </v-btn>
+                    </v-row>
+                  </template>
+                </v-data-iterator>
+              </v-container>
+            </v-row>
+          </v-container>
+
+
+         
+ 
+
+        
+
+          <v-fab-transition>
+            <v-btn style="position:fixed;
+                  left:25px;
+                  bottom:50px;"
+              color="#18446c" 
+              fab
+              large
+              dark
+              bottom
+              left
+              @click="scrollUp"
+              v-show="showArrow"
+              v-if="items.length"
+            >
+              <v-icon>mdi-chevron-up</v-icon>
+            </v-btn>
+          </v-fab-transition>
+    
+
+      </v-app>
+    </div>
+
+
+    <script async defer src="https://apis.google.com/js/api.js"
+    onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+
+  <script>
+
+$(document).scroll(function() {
+  if (!appVue.isMobile()){
+    var y = $(this).scrollTop();
+    if (y < 800) {
+      appVue.showArrow = false;
+    } else {
+      appVue.showArrow = true;
+    }
+  }
+});
+
+
+
+
+function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          //authorizeButton.onclick = handleAuthClick;
+          //signoutButton.onclick = handleSignoutClick;
+        }, function(error) {
+          //JSON.stringify(error, null, 2));
+        });
+      }
+
+ 
+      function updateSigninStatus(isSignedIn) {
+        if (isSignedIn) {
+          appVue.userIn = true;
+          //authorizeButton.style.display = 'none';
+          //signoutButton.style.display = 'block';
+          
+        } else {
+          appVue.userIn = false;
+          //authorizeButton.style.display = 'block';
+          //signoutButton.style.display = 'none';
+        }
+      }
+
+
+       function authenticate() {
+		return gapi.auth2.getAuthInstance()
+			.signIn({scope: SCOPES})
+			.then(function() { console.log("Sign-in successful"); },
+				  function(err) { console.error("Error signing in", err); });
+	}
+	function loadClient() {
+		gapi.client.setApiKey(API_KEY);
+		return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/sheets/v4/rest")
+			.then(function() { console.log("GAPI client loaded for API"); },
+				  function(err) { console.error("Error loading GAPI client for API", err); });
+	}
+
+
+//https://docs.google.com/spreadsheets/d/1_Z8j4o2PkMEve-t9cX4mFGNoyx_SZiLmXykqPEK9Et4/edit#gid=1059545443
+
+// new
+//https://docs.google.com/spreadsheets/d/1y0j3sHKE3kiT0XVsxP4W3uQUKT3ym9b62S6qT4B3T_I/edit#gid=34619894
+
+
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = '333270149523-3a7iv5m8fhn7pbenn54cgrvkdkecgl1c.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyBzAuV865rJp6pUk_9iFKVrliUc4mjVKpo'; 
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+	    
+      // SpreadsheetID to be updated:https://docs.google.com/spreadsheets/d/1TYUtK5NChZ2DNFebR4KTycpju9I9evhvsI8M3dCt2lE/edit
+      var SPREADSHEETID = '1-zs9Mq7PW3es9LNS8T1vgBbwl5H_WnCUAb9L1QPZL0w'
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets";
+
+      function authenticate() {
+		return gapi.auth2.getAuthInstance()
+			.signIn({scope: SCOPES})
+			.then(function() { console.log("Sign-in successful"); },
+				  function(err) { console.error("Error signing in", err); });
+	}
+	function loadClient() {
+		gapi.client.setApiKey(API_KEY);
+		return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/sheets/v4/rest")
+			.then(function() { console.log("GAPI client loaded for API"); },
+				  function(err) { console.error("Error loading GAPI client for API", err); });
+	}
+
+
+    function updateItem(this_UNIQ_ID, this_STATUS){
+        setTimeout(function(){
+        gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: SPREADSHEETID,
+            range: 'movilim!A1:K',
+                }).then(function(response) {
+                var range = response.result;
+                if (range.values.length > 0) {
+                    //console.log(this_UNIQ_ID);
+                    for (i = 0; i < range.values.length; i++) {
+                        var row = range.values[i];
+                        var UNIQ_ID = row[0] + " " + row[1];
+                        ////console.log(appVue.editedItem.UNIQ_ID);
+                        if (UNIQ_ID == this_UNIQ_ID){
+                            //console.log(i + 1);
+                            var rowId = i + 1;
+                                gapi.client.sheets.spreadsheets.values.update({
+                                    spreadsheetId: SPREADSHEETID,
+                                    range: 'movilim!K' + rowId,
+                                    valueInputOption: 'USER_ENTERED',
+                                    values: [ [this_STATUS] ]
+                                }).then(function(response) {
+                                    console.log(response);
+                                });
+                          
+                        }
+                    }
+                }
+            });
+        }, 1000);
+
+       }
+
+
+
+  var json = [];
+
+
+
+//var my_token= '5a4b8472-b95b-4687-8179-0ccb621c7990';
+var my_token ='aafedfe5-8dfa-4fd5-9af9-8b95759447bd'; // my github
+//var my_token = '76b35124-4d1f-44b5-a612-3463951f89f9'//my atlas-il on firebase
+
+govmap.createMap('map', 
+              {
+                  layers: ['KSHTANN_SETL_AREA'],
+                  visibleLayers: [],
+                  token: my_token,
+                  showXY: true,
+                  identifyOnClick: false,
+                  isEmbeddedToggle: false,
+                  background: 0,
+                  layersMode: 0,
+                  zoomButtons:true,
+                  isEmbeddedToggle:false
+              });
+
+
+
+var appVue = new Vue({
+    el:"#app",
+    vuetify: new Vuetify(),
+    data () {
+        return {
+        prevRow: null,
+        userIn: false,
+        showArrow: false,
+
+        itemsPerPageArray: [20, 50, 200],
+        search: '',
+        filter: {},
+        sortDesc: false,
+        page: 1,
+        itemsPerPage: 20,
+        sortBy: 'name',
+        keys: [
+            "FirstName",
+            "LastName",
+            "Organization",
+            "Role",
+            "Email",
+            "Tochnit",
+            "Mobile",
+            "Settlement",
+            "Img"
+            ],
+        items: json,
+
+        json: json,
+
+
+
+
+        selectedTitle: { title: "כל המחזורים", program: "כל התוכניות" },
+        merkazi_items: [
+            { title: 'מחזור א', program: 'שלטון מרכזי' },
+            { title: 'מחזור ב', program: 'שלטון מרכזי' },
+            { title: 'מחזור ג', program: 'שלטון מרכזי' },
+            { title: 'מחזור ד', program: 'שלטון מרכזי' },
+        ],
+        mekomi_items: [
+            { title: 'מחזור א', program: 'שלטון מקומי' },
+            { title: 'מחזור ב', program: 'שלטון מקומי' },
+            { title: 'מחזור ג', program: 'שלטון מקומי' },
+        ],
+        shutafim_items: [
+            { title: 'שותפים', program: 'שותפים וצוות' },
+        ],
+
+
+
+
+        autoUpdate: true,
+        friends: [],
+        isUpdating: false,
+        name: '',
+        people: [
+      
+        ],
+        title: '',
+
+        setl_items: [],
+        setl_item: null,
+
+        org_items: [],
+        org_item: null,
+
+        role_items: [],
+        role_item: null,
+
+        tochnit_items:[],
+        tochnit_item: null,
+
+        radios: [],
+
+
+
+
+
+
+        }
+      },
+      watch: {
+      isUpdating (val) {
+        if (val) {
+          setTimeout(() => (this.isUpdating = false), 3000)
+        }
+      },
+    },
+
+    methods: {
+        logIn(){
+            authenticate().then(loadClient);
+         },
+         logOut(){
+            gapi.auth2.getAuthInstance().signOut();
+         },
+        editItem (item) {
+        
+        this.editedIndex = this.selected_features.indexOf(item);
+        this.editedItem = Object.assign({}, item);
+        this.edit_dialog = true;
+      },
+      scrollUp(){
+       $('html, body').animate({ scrollTop: 0 }, 'fast');
+       if (!this.isMobile()){
+        this.showArrow=false;
+       }
+    },
+
+      refreshItems(){
+
+         //
+         appVue.setl_items = [];
+          for (i=0; i < json.length; i++){
+            if (!appVue.setl_items.includes(json[i].Settlement)){
+              appVue.setl_items.push(json[i].Settlement);
+            }
+          }
+          appVue.setl_items.sort();
+
+          //
+          appVue.org_items = [];
+          for (i=0; i < json.length; i++){
+            if (!appVue.org_items.includes(json[i].Organization)){
+              appVue.org_items.push(json[i].Organization);
+            }
+          }
+          appVue.org_items.sort();
+
+          //
+          appVue.role_items = [];
+          for (i=0; i < json.length; i++){
+            if (!appVue.role_items.includes(json[i].Role)){
+              appVue.role_items.push(json[i].Role);
+            }
+          }
+          appVue.role_items.sort();
+
+          //
+          appVue.tochnit_items = [];
+          for (i=0; i < json.length; i++){
+            if (!appVue.tochnit_items.includes(json[i].Tochnit)){
+              appVue.tochnit_items.push(json[i].Tochnit);
+            }
+          }
+          appVue.tochnit_items.sort();
+
+          //
+          appVue.items = appVue.json;
+          
+          appVue.selectedTitle =  { title: "כל המחזורים", program: "כל התוכניות" };
+          //appVue.selectedTitle.program="כל התוכניות" ;
+
+          govmap.zoomToXY({ x: 176085, y: 657600, level: 0, marker: false });
+
+
+      },
+      tochnitChanged(){
+        this.setItemsByTochnitSelect(this.tochnit_item);
+        this.setl_item = null;
+        this.role_item = null;
+        this.org_item = null;
+        this.friends = [];
+
+      },
+      roleChanged(){
+        this.setItemsByRole(this.role_item);
+        this.setl_item = null;
+        this.tochnit_item = null;
+        this.org_item = null;
+        this.friends = [];
+
+
+      },
+      orgChanged(){
+        this.setItemsByOrg(this.org_item);
+        this.setl_item = null;
+        this.tochnit_item = null;
+        this.role_item = null;
+        this.friends = [];
+
+      },
+      setlChanged(){
+        this.setItemsBySetl(this.setl_item);
+        this.role_item = null;
+        this.tochnit_item = null;
+        this.org_item = null;
+        this.friends = [];
+        govmap.geocode({keyword: this.setl_item, type: govmap.geocodeType.AccuracyOnly}
+            ).then(function(response){
+              if (response.data){
+                if (response.data[0].DescLayerID == "SETL_MID_POINT"){
+
+                  // console.log("נמצא ישוב!");
+                  // var params ={ 
+                  //   layerName: 'KSHTANN_SETL_AREA',
+                  //   whereClause: 'SETL_CODE = '+response.data[0].ObjectID,
+                  //   zoomToExtent: true 
+                  // }
+                  // govmap.filterLayers(params)
+
+                  //
+
+                  var params = {
+                      'layerName': 'KSHTANN_SETL_AREA',
+                      'fieldName': 'SETL_CODE',
+                      'fieldValues': [response.data[0].ObjectID],
+                      'highlight': true,
+                      'showBubble':false,
+                      'outLineColor':[127, 246, 223, 1],
+                      'outlineWidth': 1, 
+                      'fillColor': [255, 255, 255, 0.5]
+                  };
+                  govmap.searchInLayer(params);
+
+                }
+              }						
+            });  
+        
+
+      },
+      autoComplete(){
+        console.log(this.friends);
+        this.setItemsByFriends(this.friends)
+        this.role_item = null;
+        this.tochnit_item = null;
+        this.org_item = null;
+        this.setl_item = null;
+
+      },
+      setItemsByTochnitSelect(tochnit_item){
+        this.items = [];
+        console.log(tochnit_item);
+        if (appVue.selectedTitle.title == "כל המחזורים" &&  appVue.selectedTitle.program == "כל התוכניות"){
+          var array = json.filter(function (el) {return el.Tochnit == tochnit_item});
+          if (array.length > 0){
+            this.items = array;
+            console.log(array.length  + "results");
+          }
+          else{
+            console.log("no results");
+          }
+        }
+        else{
+          var array = json.filter(function (el) {return el.Tochnit == tochnit_item && el.Tochnit== appVue.selectedTitle.program +" " +appVue.selectedTitle.title});
+          if (array.length > 0){
+            this.items = array;
+            console.log(array.length  + "results");
+          }
+
+        }
+
+      },
+      setItemsByRole(role_item){
+        this.items = [];
+          if (this.selectedTitle.title == "כל המחזורים" &&  this.selectedTitle.program == "כל התוכניות"){
+            var array = json.filter(function (el) {return el.Role == role_item});
+            if (array.length > 0){
+              this.items = array;
+            }
+          }
+          else{
+            var array = json.filter(function (el) {return el.Role == role_item && el.Tochnit== appVue.selectedTitle.program +" " +appVue.selectedTitle.title  });
+            if (array.length > 0){
+              this.items = array;
+            }
+
+          }
+
+      },
+      setItemsBySetl(setl_name){
+        this.items = [];
+        if (this.selectedTitle.title == "כל המחזורים" &&  this.selectedTitle.program == "כל התוכניות"){
+          var array = json.filter(function (el) {return el.Settlement == setl_name});
+          if (array.length > 0){
+            this.items = array;
+          }
+        }
+        else{
+          var array = json.filter(function (el) {return el.Settlement == setl_name && el.Tochnit== appVue.selectedTitle.program +" " +appVue.selectedTitle.title});
+          if (array.length > 0){
+            this.items = array;
+          }
+
+        }
+      },
+      setItemsByOrg(org_item){
+        this.items = [];
+        if (this.selectedTitle.title == "כל המחזורים" &&  this.selectedTitle.program == "כל התוכניות"){
+          var array = json.filter(function (el) {return el.Organization == org_item});
+          if (array.length > 0){
+            this.items = array;
+          }
+        }
+        else{
+          var array = json.filter(function (el) {return el.Organization == org_item && el.Tochnit== appVue.selectedTitle.program +" " +appVue.selectedTitle.title});
+          if (array.length > 0){
+            this.items = array;
+          }
+
+        }
+      },
+      setItemsByFriends(friends) {
+        this.items = [];
+        for (var i=0; i < friends.length; i++)
+        {
+          var array = json.filter(function (el) {return el.FirstName + " " + el.LastName == friends[i]});
+          if (array.length > 0){
+            this.items.push(array[0]);
+          }
+        }
+      },
+      setItemsByTochnit(tochnit) {
+        this.items = [];
+        console.log(tochnit.program + " " + tochnit.title);
+          var array = json.filter(function (el) {return el.Tochnit == tochnit.program + " " + tochnit.title});
+          if (array.length > 0){
+            this.items=array;
+          }
+
+
+          //
+          appVue.setl_items = [];
+          for (i=0; i < array.length; i++){
+            if (!appVue.setl_items.includes(array[i].Settlement)){
+              appVue.setl_items.push(array[i].Settlement);
+            }
+          }
+          appVue.setl_items.sort();
+
+          //
+          appVue.org_items = [];
+          for (i=0; i < array.length; i++){
+            if (!appVue.org_items.includes(array[i].Organization)){
+              appVue.org_items.push(array[i].Organization);
+            }
+          }
+          appVue.org_items.sort();
+
+          //
+          appVue.role_items = [];
+          for (i=0; i < array.length; i++){
+            if (!appVue.role_items.includes(array[i].Role)){
+              appVue.role_items.push(array[i].Role);
+            }
+          }
+          appVue.role_items.sort();
+
+          //
+          appVue.tochnit_items = [];
+          for (i=0; i < array.length; i++){
+            if (!appVue.tochnit_items.includes(array[i].Tochnit)){
+              appVue.tochnit_items.push(array[i].Tochnit);
+            }
+          }
+          appVue.tochnit_items.sort();
+
+
+      },
+      remove (item) {
+        const index = this.friends.indexOf(item.name)
+        if (index >= 0) this.friends.splice(index, 1)
+        this.autoComplete();
+      },
+      selectItem(item){
+            console.log(item)
+            this.selectedTitle = item;
+            this.setItemsByTochnit(item)
+            this.role_item = null;
+            this.tochnit_item = null;
+            this.org_item = null;
+            this.friends = [];
+
+            if (this.isMobile()){
+              var close = document.querySelector("#navdrawer > div > div.nav-drawer__close--right");
+              close.click();
+            }
+
+
+        },
+      isMobile() {
+      if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            return true
+        } else {
+            return false
+        }
+      },
+      mapHeight(){
+          if (this.isMobile()){
+              return 200
+          } else{
+              return 390;
+          }
+      },
+
+      filtersHeight(){
+          if (this.isMobile()){
+              return null
+          } else{
+              return 390;
+          }
+      },
+
+      nextPage () {
+        if (this.page + 1 <= this.numberOfPages) this.page += 1
+      },
+      formerPage () {
+        if (this.page - 1 >= 1) this.page -= 1
+      },
+      updateItemsPerPage (number) {
+        this.itemsPerPage = number
+      },
+    },
+
+    mounted() {
+
+      if (this.isMobile()){
+        this.showArrow = true;
+
+      }
+
+      var url = 'https://raw.githubusercontent.com/yovavsanders/govmap/master/movilim.json';
+      $.getJSON(url, function(data) {
+        json = data;
+        appVue.people = [];
+      for (i=0; i < json.length; i++){
+        console.log(json[i]);
+        appVue.people.push(
+          { firstname: json[i].FirstName, lastname: json[i].LastName, name: json[i].FirstName + " " + json[i].LastName, group: json[i].Tochnit, avatar: json[i].Img }
+        )
+      }
+        //
+
+          //
+          appVue.setl_items = [];
+          for (i=0; i < json.length; i++){
+            if (!appVue.setl_items.includes(json[i].Settlement)){
+              appVue.setl_items.push(json[i].Settlement);
+            }
+          }
+          appVue.setl_items.sort();
+
+          //
+          appVue.org_items = [];
+          for (i=0; i < json.length; i++){
+            if (!appVue.org_items.includes(json[i].Organization)){
+              appVue.org_items.push(json[i].Organization);
+            }
+          }
+          appVue.org_items.sort();
+
+          //
+          appVue.role_items = [];
+          for (i=0; i < json.length; i++){
+            if (!appVue.role_items.includes(json[i].Role)){
+              appVue.role_items.push(json[i].Role);
+            }
+          }
+          appVue.role_items.sort();
+
+          //
+          appVue.tochnit_items = [];
+          for (i=0; i < json.length; i++){
+            if (!appVue.tochnit_items.includes(json[i].Tochnit)){
+              appVue.tochnit_items.push(json[i].Tochnit);
+            }
+          }
+          appVue.tochnit_items.sort();
+
+          //
+          appVue.items = json;
+          appVue.json = json;
+         
+    
+      });
+    },
+
+    computed: {
+      numberOfPages () {
+        return Math.ceil(this.items.length / this.itemsPerPage)
+      },
+      filteredKeys () {
+        return this.keys.filter(key => key !== 'FirstName')
+      },
+    },
+    })
+  </script>
+</body>
+
+
+<style>
+
+
+    @import url(https://fonts.googleapis.com/earlyaccess/alefhebrew.css);
+
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+    [v-cloak] {
+        display: none;
+    }
+
+    .wrap-text {
+   white-space: normal !important;
+}
+
+
+    body{
+        font-family: "Alef Hebrew",
+                    “Helvetica Neue”,
+                    Helvetica,
+                    Arial,
+                    sans-serif !important;
+    }
+
+  
+    span > button {
+      margin-right: 5px !important;
+    }
+
+
+    #navbtn{
+      background-color: #ECEFF1 !important;
+      color: #00305b !important;
+    }
+
+    #navdrawer > div > div.nav-drawer__close--right::after{
+      background-color:#00305b  !important;
+    }
+    #navdrawer > div > div.nav-drawer__close--right::before{
+      background-color:#00305b  !important;
+    }
+
+    .v-autocomplete:not(.v-input--is-focused).v-select--chips input { max-height: 25px !important; }
+
+    .v-select:not(.v-input--is-focused).v-select--chips input { max-height: 25px !important; }
+
+</style>
+</html>
