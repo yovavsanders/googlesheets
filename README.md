@@ -1,3 +1,3 @@
 # googlesheets
 Buildings in a risk potential (analysis and map)
-https://yovavsanders.github.io/googlesheets/bldg_risk
+https://www.govmap.gov.il/sites/bldg_risk.html
